@@ -6,9 +6,9 @@ class Home extends React.Component {
     const cats = display.result.map(cat => {
       return (
         // to link to cat
-        <li>{cat.cat}
-            &nbsp;by&nbsp;
-            {cat.name}</li>
+        <li>{cat.name}
+            &nbsp;registered by&nbsp;
+            {cat.reg_by}</li>
         // to link to user
       );
     });

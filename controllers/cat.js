@@ -44,6 +44,7 @@ module.exports = (db) => {
     db.users.checkUserName(user, (error, result) => {
       // POST cat
       let cat = request.body;
+      cat.user = result[0].id;
       db.cats.registerCat(cat, (error, result) => {
         // redirect to homepage
         response.redirect('/');
@@ -75,6 +76,19 @@ module.exports = (db) => {
     });
   };
 
+  let getCat = (request, response) => {
+    // respond with HTML page of one cat
+    let cat_id = request.params.id;
+    console.log("Getting cats.id: " + cat_id);
+    db.cats.showCat(cat_id, (error, result) => {
+      let cat = {};
+      cat.title = "Update Cat Information";
+      cat.formAction = "/cat/" + cat_id + "?_method=put";
+      cat.cat = result[0];
+      console.log(cat);
+      response.render('cat/cat', { cat });
+    });
+  }
   /**
    * ===========================================
    * Export controller functions as a module
@@ -83,7 +97,8 @@ module.exports = (db) => {
   return {
     newCat: getNewCat,
     registerCat: postNewCat,
-    allCats: getCats
+    allCats: getCats,
+    showCat: getCat
   };
 
 }

@@ -21,5 +21,6 @@ module.exports = (app, allModels) => {
   app.get('/new', catController.newCat);
   app.post('/', catController.registerCat);
   app.get('/', catController.allCats);
+  app.get('/cat/:id', catController.showCat);
 
 };
