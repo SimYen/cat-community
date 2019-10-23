@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS users (
+	id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL UNIQUE,
+	password TEXT NOT NULL,
+	joined_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS cats (
+	id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	description TEXT,
+	location TEXT NOT NULL,
+	added_at TIMESTAMPTZ DEFAULT now(),
+	vet_id INT
+);
+
+CREATE TABLE IF NOT EXISTS user_cat (
+	id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
+	cat_id INT NOT NULL
+);
