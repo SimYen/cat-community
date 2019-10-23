@@ -8,7 +8,11 @@ class Home extends React.Component {
         // to link to cat
         <li>{cat.name}
             &nbsp;registered by&nbsp;
-            {cat.reg_by}</li>
+            <a href={"/user/" + cat.user_id}>{cat.reg_by}</a>
+            <form method="GET" action={"/cat/" + cat.id}>
+            <input type="submit" value="View"/>
+            </form>
+        </li>
         // to link to user
       );
     });

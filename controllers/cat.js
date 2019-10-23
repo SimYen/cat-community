@@ -82,7 +82,6 @@ module.exports = (db) => {
     let cat_id = request.params.id;
     console.log("Getting cats.id: " + cat_id);
     db.cats.showCat(cat_id, (error, result) => {
-      console.log(result[0]);
       let cat = {};
       cat.cat = result[0];
       cat.formAction = "/cat/" + cat_id + "/edit";
