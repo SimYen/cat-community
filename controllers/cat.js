@@ -134,7 +134,7 @@ module.exports = (db) => {
     };
   };
 
-  let postCat = (request, response) => {
+  let putCat = (request, response) => {
     // update cat information
     let user = request.cookies.name;
     db.users.checkUserName(user, (error, result) => {
@@ -163,7 +163,7 @@ module.exports = (db) => {
     allCats: getCats,
     showCat: getCat,
     editCat,
-    updateCat: postCat
+    updateCat: putCat
   };
 
 }

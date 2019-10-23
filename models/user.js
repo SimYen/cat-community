@@ -54,7 +54,6 @@ module.exports = (dbPoolInstance) => {
   let currentUser = (callback) => {
     let account = {};
     account.title = "Login Account";
-    //account.message = "Please login.";
     account.formAction = "/login";
     account.user = 0;
     callback(null, account);
@@ -95,6 +94,24 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let updateUser = (user, callback) => {
+    let input = [ user.name, user.password, user.id ];
+    let query = 'UPDATE users SET name=$1, password=$2 WHERE id=$3 RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     newUser,
     checkUserName,
@@ -102,6 +119,7 @@ module.exports = (dbPoolInstance) => {
     currentUser,
     wrongPassword,
     wrongName,
-    getUserName
+    getUserName,
+    updateUser
   };
 };

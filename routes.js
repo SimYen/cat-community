@@ -17,6 +17,8 @@ module.exports = (app, allModels) => {
   app.post('/login', userController.loginUser);
   app.get('/logout', userController.logoutUser);
   app.get('/user/:id', userController.showUser);
+  app.get('/user/:id/edit', userController.editUser);
+  app.put('/user/:id', userController.updateUser);
 
   // cats
   app.get('/new', catController.newCat);
