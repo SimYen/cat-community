@@ -62,9 +62,29 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+    let updateCat = (cat, callback) => {
+    let input = [ cat.update.name, cat.update.description, cat.update.location, cat.id ];
+    let query = 'UPDATE cats SET name=$1, description=$2, location=$3 WHERE id=$4 RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+
   return {
     registerCat,
     allCats,
-    showCat
+    showCat,
+    updateCat
   };
 };

@@ -26,7 +26,7 @@ module.exports = (db) => {
             cat.title = "New Cat";
             cat.formAction = "/";
             cat.cat = 0
-            response.render('cat/cat', { cat });
+            response.render('cat/cat', cat);
           }  else {
             // inform incorrect password
             db.users.wrongPassword((error, account) => {
@@ -46,8 +46,9 @@ module.exports = (db) => {
       let cat = request.body;
       cat.user = result[0].id;
       db.cats.registerCat(cat, (error, result) => {
-        // redirect to homepage
-        response.redirect('/');
+        // redirect to cat profile page
+        let cat_id = result[0].id;
+        response.redirect('/cat/' + cat_id);
       });
     });
   };
@@ -82,13 +83,67 @@ module.exports = (db) => {
     console.log("Getting cats.id: " + cat_id);
     db.cats.showCat(cat_id, (error, result) => {
       let cat = {};
-      cat.title = "Update Cat Information";
-      cat.formAction = "/cat/" + cat_id + "?_method=put";
       cat.cat = result[0];
-      console.log(cat);
-      response.render('cat/cat', { cat });
+      cat.formAction = "/cat/" + cat_id + "/edit";
+      response.render('cat/profile', cat);
     });
   }
+
+  let editCat = (request, response) => {
+    // check if user is login
+    let user = request.cookies.name;
+    if (user === undefined) {
+      // redirect to login
+      db.users.currentUser((error, account) => {
+        response.render('user/account', { account });
+      });
+    } else {
+      //check if password correct
+      db.users.checkUserName(user, (error, result) => {
+        // if name match
+        if (result !== null) {
+          // check password
+          if ( request.cookies.loggedIn === result[0].password) {
+            // respond with HTML page with form to edit cat
+            let cat_id = request.params.id;
+            console.log("Getting cats.id: " + cat_id);
+            db.cats.showCat(cat_id, (error, result) => {
+              console.log(result);
+              let cat = {};
+              cat.title = "Update Cat Status";
+              cat.formAction = "/cat/" + cat_id + "/?_method=put";
+              cat.cat = result[0];
+              response.render('cat/cat', cat);
+            });
+          }  else {
+            // inform incorrect password
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
+          }
+        }
+      })
+    };
+  };
+
+  let postCat = (request, response) => {
+    // get user id
+    let user = request.cookies.name;
+    db.users.checkUserName(user, (error, result) => {
+      // POST cat
+      let cat = {};
+      cat.id = request.params.id;
+      cat.update = request.body;
+      // cat.user = result[0].id;
+      db.cats.updateCat(cat, (error, result) => {
+        // redirect to homepage
+        let cat_id = result[0].id;
+        response.redirect('/cat/' + cat_id);
+      });
+    });
+  };
+
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -98,7 +153,9 @@ module.exports = (db) => {
     newCat: getNewCat,
     registerCat: postNewCat,
     allCats: getCats,
-    showCat: getCat
+    showCat: getCat,
+    editCat,
+    updateCat: postCat
   };
 
 }

@@ -2,7 +2,7 @@ var React = require("react");
 
 class Cat extends React.Component {
   render() {
-    let display=this.props.cat;
+    let display=this.props;
     if (display.cat) { console.log("updating cat info") } else { console.log("adding new cat") };
     return (
       <html>

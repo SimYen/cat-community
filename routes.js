@@ -22,5 +22,6 @@ module.exports = (app, allModels) => {
   app.post('/', catController.registerCat);
   app.get('/', catController.allCats);
   app.get('/cat/:id', catController.showCat);
-
+  app.get('/cat/:id/edit', catController.editCat);
+  app.put('/cat/:id', catController.updateCat);
 };
