@@ -85,6 +85,17 @@ module.exports = (db) => {
     response.redirect('/');
   };
 
+  let showUser =  (request, response) => {
+    // respond with HTML page of user
+    let user_id = request.params.id;
+    db.users.getUserName(user_id, (error, account) => {
+      let user = {};
+      user.user = account[0];
+      user.formAction = "/user/" + user_id + "/edit";
+      response.render('user/profile', user);
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -95,7 +106,8 @@ module.exports = (db) => {
     registerUser: postNewUser,
     currentUser: getUser,
     loginUser: postUser,
-    logoutUser: exitUser
+    logoutUser: exitUser,
+    showUser
   };
 
 }

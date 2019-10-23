@@ -7,11 +7,9 @@ class Profile extends React.Component {
       <html>
         <head />
         <body>
-          <h3>{display.cat.name}</h3>
+          <h3>{display.user.name}</h3>
             <form method="GET" action={display.formAction}>
-                Description: {display.cat.description}<br/>
-                Location: {display.cat.location}<br/>
-                Added by: {display.user_name} on {display.cat.to_char}<br/>
+                Joined on {display.user.to_char}<br/>
                 <input type="submit" value="Update"/>
             </form>
         </body>

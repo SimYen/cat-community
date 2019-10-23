@@ -46,7 +46,7 @@ module.exports = (dbPoolInstance) => {
 
   let showCat = (cat, callback) => {
     let id = [ cat ];
-    let query = 'SELECT * FROM cats WHERE id=$1';
+    let query = 'SELECT id, name, description, location, to_char(added_at, \'DD/MM/YYYY\'), user_id FROM cats WHERE id=$1';
 
     dbPoolInstance.query(query, id, (error, queryResult) => {
       if( error ){

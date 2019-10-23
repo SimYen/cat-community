@@ -82,12 +82,19 @@ module.exports = (db) => {
     let cat_id = request.params.id;
     console.log("Getting cats.id: " + cat_id);
     db.cats.showCat(cat_id, (error, result) => {
+      console.log(result[0]);
       let cat = {};
       cat.cat = result[0];
       cat.formAction = "/cat/" + cat_id + "/edit";
-      response.render('cat/profile', cat);
+      // get name of user who register cat
+      let user = result[0].user_id;
+      console.log("Added by user.id: " + user);
+      db.users.getUserName(user, (error, result) => {
+        cat.user_name = result[0].name;
+        response.render('cat/profile', cat);
+      });
     });
-  }
+  };
 
   let editCat = (request, response) => {
     // check if user is login

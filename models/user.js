@@ -67,7 +67,7 @@ module.exports = (dbPoolInstance) => {
     account.formAction = "/login";
     account.user = 0;
     callback(null, account);
-  }
+  };
 
   let wrongName = (callback) => {
     let account = {};
@@ -76,7 +76,24 @@ module.exports = (dbPoolInstance) => {
     account.formAction = "/login";
     account.user = 0;
     callback(null, account);
-  }
+  };
+
+  let getUserName = (userId, callback) => {
+    let input = [ userId ];
+    let query = 'SELECT id, name, to_char(joined_at, \'DD/MM/YYYY\') FROM users WHERE id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }
+    // invoke callback function with results after query has executed
+      if( queryResult.rows.length > 0 ){
+        callback(null, queryResult.rows);
+      }else{
+        callback(null, null);
+      }
+    });
+  };
 
   return {
     newUser,
@@ -84,6 +101,7 @@ module.exports = (dbPoolInstance) => {
     registerUser,
     currentUser,
     wrongPassword,
-    wrongName
+    wrongName,
+    getUserName
   };
 };
