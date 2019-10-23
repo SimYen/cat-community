@@ -6,8 +6,7 @@ class Home extends React.Component {
     const cats = display.result.map(cat => {
       return (
         // to link to cat
-        <li>{cat.name}
-            &nbsp;registered by&nbsp;
+        <li>{cat.name}&nbsp;registered by&nbsp;
             <a href={"/user/" + cat.user_id}>{cat.reg_by}</a>
             <form method="GET" action={"/cat/" + cat.id}>
             <input type="submit" value="View"/>

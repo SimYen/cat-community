@@ -2,16 +2,14 @@ var React = require("react");
 
 class Profile extends React.Component {
   render() {
-    let display = this.props;
+    let display = this.props.account;
+    console.log(display);
     return (
       <html>
         <head />
         <body>
-          <h3>{display.user.name}</h3>
-            <form method="GET" action={display.formAction}>
-                Joined on {display.user.to_char}<br/>
-                <input type="submit" value="Update"/>
-            </form>
+          <h3>{display.name}</h3>
+                Joined on {display.to_char}<br/>
         </body>
       </html>
     );

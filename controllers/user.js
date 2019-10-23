@@ -79,7 +79,7 @@ module.exports = (db) => {
   };
 
   let exitUser = (request, response) => {
-    //clear cookies
+    // clear cookies
     response.clearCookie('loggedIn');
     response.clearCookie('name');
     response.redirect('/');
@@ -90,9 +90,11 @@ module.exports = (db) => {
     let user_id = request.params.id;
     db.users.getUserName(user_id, (error, account) => {
       let user = {};
-      user.user = account[0];
-      user.formAction = "/user/" + user_id + "/edit";
-      response.render('user/profile', user);
+      user.account = account[0]
+      // if is not same user, allow follow
+      // let currentUser = request.cookies.name;
+      // let loggedIn = request.cookies.loggedIn;
+      response.render('user/profile', user )
     });
   };
 

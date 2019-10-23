@@ -56,7 +56,6 @@ module.exports = (db) => {
   let getCats = (request, response) => {
     // respond with HTML page of all cats
     db.cats.allCats((error, result) => {
-      console.log(result);
       let display = {};
       display.result = result;
       // check if user is login
@@ -66,14 +65,17 @@ module.exports = (db) => {
         display.button1 = "Register";
         display.formAction2 = "/login";
         display.button2 = "Login";
+        response.render('cat/index', display);
       } else {
-          display.user = user;
-          display.formAction1 = "/user/" + user;
-          display.button1 = "Profile";
-          display.formAction2 = "/new";
-          display.button2 = "Add A Cat";
+          db.users.checkUserName(user, (error, account) => {
+            display.user = user;
+            display.formAction1 = "/user/" + account[0].id;
+            display.button1 = "Profile";
+            display.formAction2 = "/new";
+            display.button2 = "Add A Cat";
+            response.render('cat/index', display);
+          });
       }
-      response.render('cat/index', display);
     });
   };
 
@@ -133,7 +135,7 @@ module.exports = (db) => {
   };
 
   let postCat = (request, response) => {
-    // get user id
+    // update cat information
     let user = request.cookies.name;
     db.users.checkUserName(user, (error, result) => {
       // POST cat

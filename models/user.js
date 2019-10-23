@@ -54,7 +54,7 @@ module.exports = (dbPoolInstance) => {
   let currentUser = (callback) => {
     let account = {};
     account.title = "Login Account";
-    account.message = "Please login.";
+    //account.message = "Please login.";
     account.formAction = "/login";
     account.user = 0;
     callback(null, account);
@@ -78,8 +78,8 @@ module.exports = (dbPoolInstance) => {
     callback(null, account);
   };
 
-  let getUserName = (userId, callback) => {
-    let input = [ userId ];
+  let getUserName = (id, callback) => {
+    let input = [ id ];
     let query = 'SELECT id, name, to_char(joined_at, \'DD/MM/YYYY\') FROM users WHERE id=$1';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
