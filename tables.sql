@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS cats (
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL,
-	description TEXT,
+	description TEXT NOT NULL,
 	location TEXT NOT NULL,
 	added_at TIMESTAMPTZ DEFAULT now(),
 	vet_id INT

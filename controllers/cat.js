@@ -43,9 +43,7 @@ module.exports = (db) => {
     let user = request.cookies.name;
     db.users.checkUserName(user, (error, result) => {
       // POST cat
-      let cat = {}
-      cat.cat = request.body.cat;
-      cat.user_id = result[0].id;
+      let cat = request.body;
       db.cats.registerCat(cat, (error, result) => {
         // redirect to homepage
         response.redirect('/');

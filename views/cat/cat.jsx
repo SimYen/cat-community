@@ -11,7 +11,9 @@ class Cat extends React.Component {
         <body>
           <h3>{display.title}</h3>
             <form method="POST" action={display.formAction}>
-                Cat: <input type="text" name="cat" required/><br/>
+                Name: <input type="text" name="name" required/><br/>
+                Description: <input type="text" name="description" required/><br/>
+                Location: <input type="text" name="location" required/><br/>
                 <input type="submit" value="Submit"/>
             </form>
         </body>

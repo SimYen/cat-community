@@ -8,8 +8,8 @@ module.exports = (dbPoolInstance) => {
   // `dbPoolInstance` is accessible within this function scope
 
   let registerCat = (newCat, callback) => {
-    let input = [ newCat.cat, newCat.user_id ];
-    let query = 'INSERT INTO cats (cat, user_id) VALUES ($1, $2) RETURNING *';
+    let input = [ newCat.name, newCat.description, newCat.location ];
+    let query = 'INSERT INTO cats (name, description, location) VALUES ($1, $2, $3) RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
