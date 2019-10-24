@@ -169,7 +169,6 @@ module.exports = (dbPoolInstance) => {
 
   let unfollow = (unfollow, callback) => {
     let input = [ unfollow.user_id, unfollow.follower_id ];
-    console.log(input);
     let query = 'DELETE FROM followers WHERE user_id=$1 AND follower_id=$2 RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
@@ -186,8 +185,26 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let getFollow = (data, callback) => {
+    let input = [ data.user_id, data.follower_id ];
+    let query = 'SELECT * FROM followers WHERE user_id=$1 AND follower_id=$2';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  }
+
   let allUsers = (callback) => {
-    let query = 'SELECT id, name, to_char(joined_at, \'DD/MM/YYYY\') FROM users';
+    let query = 'SELECT id, name, to_char(joined_at, \'DD/MM/YYYY\') FROM users ORDER BY joined_at DESC';
 
     dbPoolInstance.query(query, (error, queryResult) => {
       if( error ){
@@ -213,6 +230,7 @@ module.exports = (dbPoolInstance) => {
     updateUser,
     followCat, unfollowCat,
     follow, unfollow,
+    getFollow,
     allUsers
   };
 };
