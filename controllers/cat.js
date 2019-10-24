@@ -35,8 +35,8 @@ module.exports = (db) => {
             });
           }
         }
-      })
-    };
+      });
+    }
   };
 
   let postNewCat = (request, response) => {
@@ -118,8 +118,8 @@ module.exports = (db) => {
                   cat.button = "Unfollow";
                   response.render('cat/profile', cat );
               }
-            })
-          })
+            });
+          });
         }
       });
     });
@@ -158,8 +158,8 @@ module.exports = (db) => {
             });
           }
         }
-      })
-    };
+      });
+    }
   };
 
   let putCat = (request, response) => {
@@ -208,8 +208,16 @@ module.exports = (db) => {
             });
           }
         }
-      })
-    };
+      });
+    }
+  };
+
+  let catFed = (request, response) => {
+    let cat = request.params.id;
+    db.cats.fed(cat, (error, result) => {
+      console.log("cat fed info");
+      response.send( result );
+    });
   };
 
   /**
@@ -224,7 +232,7 @@ module.exports = (db) => {
     showCat: getCat,
     editCat,
     updateCat: putCat,
-    feedCat
+    feedCat, catFed
   };
 
 }

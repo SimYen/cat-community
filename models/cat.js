@@ -98,11 +98,30 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let fed = (cat, callback) => {
+    let input = [ cat ];
+    let query = 'SELECT to_char(cat_fed.fed_at, \'DD/MM/YYYY HH24:MI\'), users.name, users.id ' +
+                'FROM cat_fed JOIN users ON cat_fed.user_id=users.id WHERE cat_fed.cat_id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     registerCat,
     allCats,
     showCat,
     updateCat,
-    fedCat
+    fedCat, fed
   };
 };

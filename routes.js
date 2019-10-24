@@ -34,4 +34,5 @@ module.exports = (app, allModels) => {
   app.get('/cat/:id/edit', catController.editCat);
   app.put('/cat/:id', catController.updateCat);
   app.put('/fed/:id', catController.feedCat);
+  app.get('/cat/:id/fed', catController.catFed);
 };
