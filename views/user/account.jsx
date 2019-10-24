@@ -14,9 +14,6 @@ class User extends React.Component {
                 Password: <input type="password" name="password" required/><br/>
                 <input type="submit" value="Submit"/>
             </form>
-            <form method="POST" action={"/user/cat/" + cat.id}>
-                <input type="submit" value="Follow"/>
-            </form>
         </body>
       </html>
     );

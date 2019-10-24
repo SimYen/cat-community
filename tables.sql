@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users (
 	id SERIAL PRIMARY KEY,
-	name TEXT NOT NULL UNIQUE,
+	name TEXT NOT NULL,
 	password TEXT NOT NULL,
 	joined_at TIMESTAMPTZ DEFAULT now()
 );
@@ -18,4 +18,10 @@ CREATE TABLE IF NOT EXISTS user_cat (
 	id SERIAL PRIMARY KEY,
 	user_id INT NOT NULL,
 	cat_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS followers (
+	id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
+	follower_id INT NOT NULL
 );

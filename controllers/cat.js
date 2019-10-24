@@ -16,7 +16,7 @@ module.exports = (db) => {
       });
     } else {
       //check if password correct
-      db.users.checkUserName(user, (error, result) => {
+      db.users.checkUserId(user, (error, result) => {
         // if name match
         if (result !== null) {
           // check password
@@ -42,7 +42,7 @@ module.exports = (db) => {
   let postNewCat = (request, response) => {
     // get user id
     let user = request.cookies.name;
-    db.users.checkUserName(user, (error, result) => {
+    db.users.checkUserId(user, (error, result) => {
       // POST cat
       let cat = request.body;
       cat.user = result[0].id;
@@ -69,7 +69,7 @@ module.exports = (db) => {
         display.button2 = "Login";
         response.render('cat/index', display);
       } else {
-          db.users.checkUserName(user, (error, account) => {
+          db.users.checkUserId(user, (error, account) => {
             display.user = user;
             display.formAction1 = "/user/" + account[0].id;
             display.button1 = "Profile";
@@ -108,7 +108,7 @@ module.exports = (db) => {
       });
     } else {
       //check if password correct
-      db.users.checkUserName(user, (error, result) => {
+      db.users.checkUserId(user, (error, result) => {
         // if name match
         if (result !== null) {
           // check password
@@ -138,7 +138,7 @@ module.exports = (db) => {
   let putCat = (request, response) => {
     // update cat information
     let user = request.cookies.name;
-    db.users.checkUserName(user, (error, result) => {
+    db.users.checkUserId(user, (error, result) => {
       // POST cat
       let cat = {};
       cat.id = request.params.id;

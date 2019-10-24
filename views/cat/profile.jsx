@@ -17,6 +17,9 @@ class Profile extends React.Component {
             <form method="POST" action={"/user/cat/" + display.cat.id}>
                 <input type="submit" value="Follow"/>
             </form>
+            <form method="POST" action={"/user/cat/" + display.cat.id + "?_method=delete"}>
+              <input type="submit" value="Unfollow"/>
+            </form>
         </body>
       </html>
     );

@@ -19,7 +19,7 @@ module.exports = (db) => {
   let postNewUser = (request, response) => {
     let newUser = request.body;
     // check if name already exist
-    db.users.checkUserName(newUser.name, (error, result) => {
+    db.users.checkUserId(newUser.name, (error, result) => {
       // if exist, request another name
       if (result !== null) {
         let account = {};
@@ -54,7 +54,7 @@ module.exports = (db) => {
     // check user login
     let user =  request.body;
     // check if name is correct
-    db.users.checkUserName(user.name, (error, result) => {
+    db.users.checkUserId(user.name, (error, result) => {
       // if name match
       if (result !== null) {
         // check password
@@ -96,12 +96,14 @@ module.exports = (db) => {
       let user = {};
       user.account = account[0]
       if (request.cookies.name === user.account.name) {
+        user.method = "GET";
         user.formAction = "/user/" + user.account.id + "/edit";
         user.button = "Update";
+      } else {
+        user.method = "POST";
+        user.formAction = "/user/follow/" + user_id;
+        user.button = "Follow";
       }
-      // if is not same user, allow follow
-      // let currentUser = request.cookies.name;
-      // let loggedIn = request.cookies.loggedIn;
       response.render('user/profile', user )
     });
   };
@@ -111,7 +113,7 @@ module.exports = (db) => {
     let user =  request.cookies.name;
     let loggedIn = request.cookies.loggedIn;
     // check if name is correct
-    db.users.checkUserName(user, (error, result) => {
+    db.users.checkUserId(user, (error, result) => {
       // if name match
       if (user === result[0].name) {
         // check password
@@ -143,7 +145,7 @@ module.exports = (db) => {
     let user_id = request.params.id;
     let user = request.body;
     // check if name already exist
-    db.users.checkUserName(user.name, (error, result) => {
+    db.users.checkUserId(user.name, (error, result) => {
       // if exist, request another name
       if (result !== null) {
         let account = {};
@@ -181,13 +183,13 @@ module.exports = (db) => {
       });
     } else {
       //check if password correct
-      db.users.checkUserName(user, (error, result) => {
+      db.users.checkUserId(user, (error, result) => {
         // if name match
         if (result !== null) {
           // check password
           if ( request.cookies.loggedIn === result[0].password) {
             // add cat to user follow list
-            console.log("follow cat")
+            console.log("follow cat");
             let follow = {}
             follow.user_id = result[0].id;
             follow.cat_id = request.params.id;
@@ -208,9 +210,10 @@ module.exports = (db) => {
   let deleteCat = (request, response) => {
     // get user id
     user = request.cookies.name;
-    db.users.getUserName(user, (error, result) => {
+    db.users.checkUserId(user, (error, result) => {
       // add cat to user follow list
-      console.log("unfollow cat")
+      console.log(result);
+      console.log("unfollow cat");
       let unfollow = {}
       unfollow.user_id = result[0].id;
       unfollow.cat_id = request.params.id;
@@ -219,6 +222,42 @@ module.exports = (db) => {
       });
     });
   };
+
+  let followUser = (request, response) => {
+    // check if user is login
+    console.log("follow user");
+    let user = request.cookies.name;
+    if (user === undefined) {
+      // redirect to login
+      db.users.currentUser((error, account) => {
+        response.render('user/account', { account });
+      });
+    } else {
+      //check if password correct
+      db.users.checkUserId(user, (error, result) => {
+        // if name match
+        if (result !== null) {
+          // check password
+          if ( request.cookies.loggedIn === result[0].password) {
+            // add user to follow list
+            console.log("follow user");
+            let follow = {}
+            follow.user_id = result[0].id;
+            follow.follower_id = request.params.id;
+            db.users.follower(follow, (error, result) => {
+              response.send( result );
+            });
+          }  else {
+            // inform incorrect password
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
+          }
+        }
+      })
+    };
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -233,7 +272,8 @@ module.exports = (db) => {
     showUser, editUser,
     updateUser: putUser,
     followCat: postCat,
-    unfollowCat: deleteCat
+    unfollowCat: deleteCat,
+    followUser
   };
 
 }

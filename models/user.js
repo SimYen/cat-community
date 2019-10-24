@@ -15,7 +15,7 @@ module.exports = (dbPoolInstance) => {
     callback(null, account);
   };
 
-  let checkUserName = (userName, callback) => {
+  let checkUserId = (userName, callback) => {
     let input = [ userName ];
     let query = 'SELECT * FROM users WHERE name=$1';
 
@@ -132,7 +132,26 @@ module.exports = (dbPoolInstance) => {
 
   let unfollowCat = (unfollow, callback) => {
     let input = [ unfollow.user_id, unfollow.cat_id ];
+    console.log(input);
     let query = 'DELETE FROM user_cat WHERE user_id=$1 AND cat_id=$2 RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+  let follower = (follow, callback) => {
+    let input = [ follow.user_id, follow.follower_id ];
+    let query = 'INSERT INTO followers (user_id, cat_id) VALUES ($1, $2) RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -150,13 +169,14 @@ module.exports = (dbPoolInstance) => {
 
   return {
     newUser,
-    checkUserName, // includes password
+    checkUserId, // check using name, includes password
     registerUser,
     currentUser,
     wrongPassword,
     wrongName,
-    getUserName, // no password, date formatted
+    getUserName, // check using id, no password, date formatted
     updateUser,
-    followCat, unfollowCat
+    followCat, unfollowCat,
+    follower
   };
 };
