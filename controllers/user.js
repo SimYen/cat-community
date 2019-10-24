@@ -101,26 +101,34 @@ module.exports = (db) => {
         user.button = "Update";
         response.render('user/profile', user )
       } else {
-        // check if viewer is following user
-        db.users.checkUserId(request.cookies.name, (error, account) => {
-            let input = {};
-            input.user_id = account[0].id;
-            input.follower_id = user_id;
-            db.users.getFollow(input, (error, result) => {
-              if (result === null) {
-                user.method = "POST";
-                user.formAction = "/user/follow/" + user_id;
-                user.button = "Follow";
-                response.render('user/profile', user )
-              } else {
+          // check if user is login
+          if (request.cookies.name === undefined) {
+            user.method = "POST";
+            user.formAction = "/user/follow/" + user_id;
+            user.button = "Follow";
+            response.render('user/profile', user )
+          } else {
+            // check if viewer is following user
+            db.users.checkUserId(request.cookies.name, (error, account) => {
+              let input = {};
+              input.user_id = account[0].id;
+              input.follower_id = user_id;
+              db.users.getFollow(input, (error, result) => {
+                if (result === null) {
+                  user.method = "POST";
+                  user.formAction = "/user/follow/" + user_id;
+                  user.button = "Follow";
+                  response.render('user/profile', user )
+                } else {
                   user.method = "POST";
                   user.formAction = "/user/follow/" + user_id + "/?_method=delete";
                   user.button = "Unfollow";
                   response.render('user/profile', user )
-              }
+                }
+              })
             })
-        })
-      }
+          }
+        }
     });
   };
 
@@ -210,7 +218,7 @@ module.exports = (db) => {
             follow.user_id = result[0].id;
             follow.cat_id = request.params.id;
             db.users.followCat(follow, (error, result) => {
-              response.send( result );
+              response.redirect( '/cat/'+ follow.cat_id );
             });
           }  else {
             // inform incorrect password
@@ -233,7 +241,7 @@ module.exports = (db) => {
       unfollow.user_id = result[0].id;
       unfollow.cat_id = request.params.id;
       db.users.unfollowCat(unfollow, (error, result) => {
-        response.send( result );
+        response.redirect( '/cat/'+ unfollow.cat_id );
       });
     });
   };
@@ -259,7 +267,7 @@ module.exports = (db) => {
             follow.user_id = result[0].id;
             follow.follower_id = parseInt(request.params.id);
             db.users.follow(follow, (error, result) => {
-              response.send( result );
+              response.redirect( '/user/'+ follow.follower_id );
             });
           }  else {
             // inform incorrect password
@@ -282,7 +290,7 @@ module.exports = (db) => {
       unfollow.user_id = result[0].id;
       unfollow.follower_id = request.params.id;
       db.users.unfollow(unfollow, (error, result) => {
-        response.send( result );
+        response.redirect( '/user/'+ unfollow.follower_id );
       });
     });
   };

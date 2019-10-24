@@ -31,6 +31,9 @@ class Home extends React.Component {
           <form method="GET" action={display.formAction2}>
             <input type="submit" value={display.button2}/>
           </form>
+          <form method="GET" action="/user">
+            <input type="submit" value="View Users"/>
+          </form>
           <ul>
             {cats}
           </ul>

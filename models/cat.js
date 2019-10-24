@@ -80,10 +80,29 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let fedCat = (cat, callback) => {
+    let input = [ cat.id, cat.user ];
+    let query = 'INSERT INTO cat_fed (cat_id, user_id) VALUES ($1, $2) RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     registerCat,
     allCats,
     showCat,
-    updateCat
+    updateCat,
+    fedCat
   };
 };

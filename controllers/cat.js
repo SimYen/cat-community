@@ -93,12 +93,20 @@ module.exports = (db) => {
       let user = result[0].user_id;
       db.users.getUserName(user, (error, result) => {
         cat.user_name = result[0].name;
-        // check if viewer is following cat
-        db.users.checkUserId(request.cookies.name, (error, account) => {
-          let input = {};
-          input.user_id = account[0].id;
-          input.cat_id = cat_id;
-          db.users.getFollowCat(input, (error, result) => {
+        // check if user is login
+        let user = request.cookies.name;
+        if (user === undefined) {
+          cat.method = "POST";
+          cat.formAction = "/user/cat/" + cat_id;
+          cat.button = "Follow";
+          response.render('cat/profile', cat );
+        } else {
+          // check if viewer is following cat
+          db.users.checkUserId(request.cookies.name, (error, account) => {
+            let input = {};
+            input.user_id = account[0].id;
+            input.cat_id = cat_id;
+            db.users.getFollowCat(input, (error, result) => {
               if (result === null) {
                 cat.method = "POST";
                 cat.formAction = "/user/cat/" + cat_id;
@@ -111,7 +119,8 @@ module.exports = (db) => {
                   response.render('cat/profile', cat );
               }
             })
-        })
+          })
+        }
       });
     });
   };
@@ -154,16 +163,13 @@ module.exports = (db) => {
   };
 
   let putCat = (request, response) => {
-    // update cat information
     let user = request.cookies.name;
     db.users.checkUserId(user, (error, result) => {
-      // POST cat
+      // update cat information
       let cat = {};
       cat.id = request.params.id;
       cat.update = request.body;
-      // cat.user = result[0].id;
       db.cats.updateCat(cat, (error, result) => {
-        // redirect to homepage
         console.log("cat info updated");
         let cat_id = result[0].id;
         response.redirect('/cat/' + cat_id);
@@ -171,6 +177,40 @@ module.exports = (db) => {
     });
   };
 
+  let feedCat = (request, response) => {
+    // check if user is login
+    let user = request.cookies.name;
+    if (user === undefined) {
+      // redirect to login
+      db.users.currentUser((error, account) => {
+        response.render('user/account', { account });
+      });
+    } else {
+      //check if password correct
+      db.users.checkUserId(user, (error, result) => {
+        // if name match
+        if (result !== null) {
+          // check password
+          if ( request.cookies.loggedIn === result[0].password) {
+            // update cat fed
+            let cat = {};
+            cat.id = request.params.id;
+            cat.user = result[0].id;
+            db.cats.fedCat(cat, (error, result) => {
+              console.log("cat fed");
+              let cat_id = result[0].cat_id;
+              response.redirect('/cat/' + cat_id);
+            });
+          }  else {
+            // inform incorrect password
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
+          }
+        }
+      })
+    };
+  };
 
   /**
    * ===========================================
@@ -183,7 +223,8 @@ module.exports = (db) => {
     allCats: getCats,
     showCat: getCat,
     editCat,
-    updateCat: putCat
+    updateCat: putCat,
+    feedCat
   };
 
 }

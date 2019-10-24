@@ -25,3 +25,10 @@ CREATE TABLE IF NOT EXISTS followers (
 	user_id INT NOT NULL,
 	follower_id INT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS cat_fed (
+	id SERIAL PRIMARY KEY,
+	fed_at TIMESTAMPTZ DEFAULT now(),
+	cat_id INT,
+	user_id INT
+);
