@@ -166,9 +166,10 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
-  let getCatFollowing = (data, callback) => {
-    let input = [ data.user_id, data.cat_id ];
-    let query = 'SELECT * FROM user_cat WHERE user_id=$1 AND cat_id=$2';
+  let getFollowCats = (user, callback) => {
+    let input = [ user ];
+    let query = 'SELECT user_cat.cat_id, cats.name FROM user_cat JOIN cats ' +
+                'ON user_cat.cat_id=cats.id WHERE user_cat.user_id=$1';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -265,6 +266,7 @@ module.exports = (dbPoolInstance) => {
     updateUser,
     followCat, unfollowCat,
     getFollowCat, // check if following cat
+    getFollowCats,
     follow, unfollow,
     getFollow, // check if following user
     allUsers

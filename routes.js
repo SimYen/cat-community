@@ -25,6 +25,7 @@ module.exports = (app, allModels) => {
   app.delete('/user/cat/:id', userController.unfollowCat);
   app.post('/user/follow/:id', userController.followUser);
   app.delete('/user/follow/:id', userController.unfollowUser);
+  app.get('/user/:id/cat', userController.catFollow);
 
   // cats
   app.get('/new', catController.newCat);

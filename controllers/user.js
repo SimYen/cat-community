@@ -197,6 +197,32 @@ module.exports = (db) => {
     });
   };
 
+  let getUsers = (request, response) => {
+    // respond with HTML page of all users
+    db.users.allUsers((error, result) => {
+      let display = {};
+      display.result = result;
+      // check if user is login
+      let user = request.cookies.name;
+      if (user === undefined) {
+        display.formAction1 = "/register";
+        display.button1 = "Register";
+        display.formAction2 = "/login";
+        display.button2 = "Login";
+        response.render('user/index', display);
+      } else {
+          db.users.checkUserId(user, (error, account) => {
+            display.user = user;
+            display.formAction1 = "/user/" + account[0].id;
+            display.button1 = "Profile";
+            display.formAction2 = "/new";
+            display.button2 = "Add A Cat";
+            response.render('user/index', display);
+          });
+      }
+    });
+  };
+
   let postCat = (request, response) => {
     // check if user is login
     let user = request.cookies.name;
@@ -295,32 +321,13 @@ module.exports = (db) => {
     });
   };
 
-  let getUsers = (request, response) => {
-    // respond with HTML page of all users
-    db.users.allUsers((error, result) => {
-      let display = {};
-      display.result = result;
-      // check if user is login
-      let user = request.cookies.name;
-      if (user === undefined) {
-        display.formAction1 = "/register";
-        display.button1 = "Register";
-        display.formAction2 = "/login";
-        display.button2 = "Login";
-        response.render('user/index', display);
-      } else {
-          db.users.checkUserId(user, (error, account) => {
-            display.user = user;
-            display.formAction1 = "/user/" + account[0].id;
-            display.button1 = "Profile";
-            display.formAction2 = "/new";
-            display.button2 = "Add A Cat";
-            response.render('user/index', display);
-          });
-      }
+  let catFollow = (request, response) => {
+    // get user id
+    user = request.params.id;
+    db.users.getFollowCats(user, (error, result) => {
+      response.send( result );
     });
   };
-
   /**
    * ===========================================
    * Export controller functions as a module
@@ -334,11 +341,12 @@ module.exports = (db) => {
     logoutUser: exitUser,
     showUser, editUser,
     updateUser: putUser,
+    allUsers: getUsers,
     followCat: postCat,
     unfollowCat: deleteCat,
     followUser: postFollow,
     unfollowUser: deleteFollow,
-    allUsers: getUsers
+    catFollow
   };
 
 }
