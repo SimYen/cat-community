@@ -149,6 +149,24 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let getFollowCat = (data, callback) => {
+    let input = [ data.user_id, data.cat_id ];
+    let query = 'SELECT * FROM user_cat WHERE user_id=$1 AND cat_id=$2';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  }
+
   let follow = (follow, callback) => {
     let input = [ follow.user_id, follow.follower_id ];
     let query = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
@@ -229,6 +247,7 @@ module.exports = (dbPoolInstance) => {
     getUserName, // check using id, no password, date formatted
     updateUser,
     followCat, unfollowCat,
+    getFollowCat,
     follow, unfollow,
     getFollow,
     allUsers

@@ -93,7 +93,25 @@ module.exports = (db) => {
       let user = result[0].user_id;
       db.users.getUserName(user, (error, result) => {
         cat.user_name = result[0].name;
-        response.render('cat/profile', cat);
+        // check if viewer is following cat
+        db.users.checkUserId(request.cookies.name, (error, account) => {
+          let input = {};
+          input.user_id = account[0].id;
+          input.cat_id = cat_id;
+          db.users.getFollowCat(input, (error, result) => {
+              if (result === null) {
+                cat.method = "POST";
+                cat.formAction = "/user/cat/" + cat_id;
+                cat.button = "Follow";
+                response.render('cat/profile', cat );
+              } else {
+                  cat.method = "POST";
+                  cat.formAction = "/user/cat/" + cat_id + "/?_method=delete";
+                  cat.button = "Unfollow";
+                  response.render('cat/profile', cat );
+              }
+            })
+        })
       });
     });
   };

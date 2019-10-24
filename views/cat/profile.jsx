@@ -9,18 +9,15 @@ class Profile extends React.Component {
         <head />
         <body>
           <h3>{display.cat.name}</h3>
-            <form method="GET" action={display.formAction}>
-                Description: {display.cat.description}<br/>
-                Location: {display.cat.location}<br/>
-                Added by: <a href={"/user/" + display.cat.user_id}>{display.user_name}</a> on {display.cat.to_char}<br/>
-                <input type="submit" value="Update"/>
-            </form>
-            <form method="POST" action={"/user/cat/" + display.cat.id}>
-                <input type="submit" value="Follow"/>
-            </form>
-            <form method="POST" action={"/user/cat/" + display.cat.id + "?_method=delete"}>
-              <input type="submit" value="Unfollow"/>
-            </form>
+          <form method={display.method} action={display.formAction}>
+            <input type="submit" value={display.button}/>
+          </form>
+          <form method="GET" action={display.formAction}>
+            Description: {display.cat.description}<br/>
+            Location: {display.cat.location}<br/>
+            Added by: <a href={"/user/" + display.cat.user_id}>{display.user_name}</a> on {display.cat.to_char}<br/>
+            <input type="submit" value="Update"/>
+          </form>
         </body>
       </html>
     );

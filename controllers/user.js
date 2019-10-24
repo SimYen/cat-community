@@ -101,21 +101,21 @@ module.exports = (db) => {
         user.button = "Update";
         response.render('user/profile', user )
       } else {
-        // check if user is following viewed user
+        // check if viewer is following user
         db.users.checkUserId(request.cookies.name, (error, account) => {
             let input = {};
             input.user_id = account[0].id;
             input.follower_id = user_id;
             db.users.getFollow(input, (error, result) => {
-              if (result.length > 0) {
+              if (result === null) {
                 user.method = "POST";
-                user.formAction = "/user/follow/" + user_id + "/?_method=delete";
-                user.button = "Unfollow";
+                user.formAction = "/user/follow/" + user_id;
+                user.button = "Follow";
                 response.render('user/profile', user )
               } else {
                   user.method = "POST";
-                  user.formAction = "/user/follow/" + user_id;
-                  user.button = "Follow";
+                  user.formAction = "/user/follow/" + user_id + "/?_method=delete";
+                  user.button = "Unfollow";
                   response.render('user/profile', user )
               }
             })
