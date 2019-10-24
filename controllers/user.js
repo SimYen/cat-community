@@ -211,8 +211,7 @@ module.exports = (db) => {
     // get user id
     user = request.cookies.name;
     db.users.checkUserId(user, (error, result) => {
-      // add cat to user follow list
-      console.log(result);
+      // remove cat from user follow list
       console.log("unfollow cat");
       let unfollow = {}
       unfollow.user_id = result[0].id;
@@ -223,7 +222,7 @@ module.exports = (db) => {
     });
   };
 
-  let followUser = (request, response) => {
+  let postFollow = (request, response) => {
     // check if user is login
     let user = request.cookies.name;
     if (user === undefined) {
@@ -243,7 +242,7 @@ module.exports = (db) => {
             let follow = {}
             follow.user_id = result[0].id;
             follow.follower_id = parseInt(request.params.id);
-            db.users.follower(follow, (error, result) => {
+            db.users.follow(follow, (error, result) => {
               response.send( result );
             });
           }  else {
@@ -255,6 +254,47 @@ module.exports = (db) => {
         }
       })
     };
+  };
+
+  let deleteFollow = (request, response) => {
+    // get user id
+    user = request.cookies.name;
+    db.users.checkUserId(user, (error, result) => {
+      // remove user from follow list
+      console.log("unfollow user");
+      let unfollow = {}
+      unfollow.user_id = result[0].id;
+      unfollow.follower_id = request.params.id;
+      db.users.unfollow(unfollow, (error, result) => {
+        response.send( result );
+      });
+    });
+  };
+
+  let getUsers = (request, response) => {
+    // respond with HTML page of all users
+    db.users.allUsers((error, result) => {
+      let display = {};
+      display.result = result;
+      // check if user is login
+      let user = request.cookies.name;
+      if (user === undefined) {
+        display.formAction1 = "/register";
+        display.button1 = "Register";
+        display.formAction2 = "/login";
+        display.button2 = "Login";
+        response.render('user/index', display);
+      } else {
+          db.users.checkUserId(user, (error, account) => {
+            display.user = user;
+            display.formAction1 = "/user/" + account[0].id;
+            display.button1 = "Profile";
+            display.formAction2 = "/new";
+            display.button2 = "Add A Cat";
+            response.render('user/index', display);
+          });
+      }
+    });
   };
 
   /**
@@ -272,7 +312,9 @@ module.exports = (db) => {
     updateUser: putUser,
     followCat: postCat,
     unfollowCat: deleteCat,
-    followUser
+    followUser: postFollow,
+    unfollowUser: deleteFollow,
+    allUsers: getUsers
   };
 
 }
