@@ -11,6 +11,9 @@ class Home extends React.Component {
             <form method="GET" action={"/cat/" + cat.id}>
             <input type="submit" value="View"/>
             </form>
+            <form method="POST" action={"/user/cat/" + cat.id}>
+            <input type="submit" value="Follow"/>
+            </form>
         </li>
         // to link to user
       );

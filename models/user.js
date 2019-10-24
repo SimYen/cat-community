@@ -112,14 +112,51 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let followCat = (follow, callback) => {
+    let input = [ follow.user_id, follow.cat_id ];
+    let query = 'INSERT INTO user_cat (user_id, cat_id) VALUES ($1, $2) RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+  let unfollowCat = (unfollow, callback) => {
+    let input = [ unfollow.user_id, unfollow.cat_id ];
+    let query = 'DELETE FROM user_cat WHERE user_id=$1 AND cat_id=$2 RETURNING *';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     newUser,
-    checkUserName,
+    checkUserName, // includes password
     registerUser,
     currentUser,
     wrongPassword,
     wrongName,
-    getUserName,
-    updateUser
+    getUserName, // no password, date formatted
+    updateUser,
+    followCat, unfollowCat
   };
 };

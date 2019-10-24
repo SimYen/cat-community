@@ -22,6 +22,7 @@ module.exports = (db) => {
           // check password
           if ( request.cookies.loggedIn === result[0].password) {
             // respond with HTML page with form to add new cat
+            console.log("register cat");
             let cat = {}
             cat.title = "New Cat";
             cat.formAction = "/";
@@ -47,6 +48,7 @@ module.exports = (db) => {
       cat.user = result[0].id;
       db.cats.registerCat(cat, (error, result) => {
         // redirect to cat profile page
+        console.log("cat registered");
         let cat_id = result[0].id;
         response.redirect('/cat/' + cat_id);
       });
@@ -82,14 +84,13 @@ module.exports = (db) => {
   let getCat = (request, response) => {
     // respond with HTML page of one cat
     let cat_id = request.params.id;
-    console.log("Getting cats.id: " + cat_id);
+    console.log("getting cat profile");
     db.cats.showCat(cat_id, (error, result) => {
       let cat = {};
       cat.cat = result[0];
       cat.formAction = "/cat/" + cat_id + "/edit";
       // get name of user who register cat
       let user = result[0].user_id;
-      console.log("Added by user.id: " + user);
       db.users.getUserName(user, (error, result) => {
         cat.user_name = result[0].name;
         response.render('cat/profile', cat);
@@ -113,8 +114,8 @@ module.exports = (db) => {
           // check password
           if ( request.cookies.loggedIn === result[0].password) {
             // respond with HTML page with form to edit cat
+            console.log("update cat info");
             let cat_id = request.params.id;
-            console.log("Getting cats.id: " + cat_id);
             db.cats.showCat(cat_id, (error, result) => {
               console.log(result);
               let cat = {};
@@ -145,6 +146,7 @@ module.exports = (db) => {
       // cat.user = result[0].id;
       db.cats.updateCat(cat, (error, result) => {
         // redirect to homepage
+        console.log("cat info updated");
         let cat_id = result[0].id;
         response.redirect('/cat/' + cat_id);
       });

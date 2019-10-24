@@ -19,6 +19,8 @@ module.exports = (app, allModels) => {
   app.get('/user/:id', userController.showUser);
   app.get('/user/:id/edit', userController.editUser);
   app.put('/user/:id', userController.updateUser);
+  app.post('/user/cat/:id', userController.followCat);
+  app.delete('/user/cat/:id', userController.unfollowCat);
 
   // cats
   app.get('/new', catController.newCat);

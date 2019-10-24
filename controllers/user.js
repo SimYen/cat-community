@@ -10,6 +10,7 @@ module.exports = (db) => {
 
   let getNewUser = (request, response) => {
     // respond with HTML page with form to register
+    console.log("register user");
     db.users.newUser((error, account) => {
       response.render('user/account', { account });
     });
@@ -43,6 +44,7 @@ module.exports = (db) => {
 
   let getUser =  (request, response) => {
     // respond with HTML page with form to login
+    console.log("login user");
     db.users.currentUser((error, account) => {
       response.render('user/account', { account });
     });
@@ -80,6 +82,7 @@ module.exports = (db) => {
 
   let exitUser = (request, response) => {
     // clear cookies
+    console.log("logout user");
     response.clearCookie('loggedIn');
     response.clearCookie('name');
     response.redirect('/');
@@ -88,6 +91,7 @@ module.exports = (db) => {
   let showUser =  (request, response) => {
     // respond with HTML page of user
     let user_id = request.params.id;
+    console.log("get user profile");
     db.users.getUserName(user_id, (error, account) => {
       let user = {};
       user.account = account[0]
@@ -113,6 +117,7 @@ module.exports = (db) => {
         // check password
         if (loggedIn === result[0].password) {
           // respond with HTML page with form to edit user
+          console.log("update user account");
           let account = {};
           account.title = "Update Account";
           account.formAction = "/user/" + result[0].id +"/?_method=put";
@@ -135,7 +140,6 @@ module.exports = (db) => {
 
   let putUser = (request, response) => {
     // update user information
-    console.log("Updating user info.")
     let user_id = request.params.id;
     let user = request.body;
     // check if name already exist
@@ -150,6 +154,7 @@ module.exports = (db) => {
         response.render('user/account', { account });
       } else {
         // UPDATE info into user db
+        console.log("updating user account");
         user.password = sha256(user.password + SALT);
         user.id = user_id;
         db.users.updateUser(user, (error, account) => {
@@ -165,6 +170,55 @@ module.exports = (db) => {
       }
     });
   };
+
+  let postCat = (request, response) => {
+    // check if user is login
+    let user = request.cookies.name;
+    if (user === undefined) {
+      // redirect to login
+      db.users.currentUser((error, account) => {
+        response.render('user/account', { account });
+      });
+    } else {
+      //check if password correct
+      db.users.checkUserName(user, (error, result) => {
+        // if name match
+        if (result !== null) {
+          // check password
+          if ( request.cookies.loggedIn === result[0].password) {
+            // add cat to user follow list
+            console.log("follow cat")
+            let follow = {}
+            follow.user_id = result[0].id;
+            follow.cat_id = request.params.id;
+            db.users.followCat(follow, (error, result) => {
+              response.send( result );
+            });
+          }  else {
+            // inform incorrect password
+            db.users.wrongPassword((error, account) => {
+              response.render('user/account', { account });
+            });
+          }
+        }
+      })
+    };
+  };
+
+  let deleteCat = (request, response) => {
+    // get user id
+    user = request.cookies.name;
+    db.users.getUserName(user, (error, result) => {
+      // add cat to user follow list
+      console.log("unfollow cat")
+      let unfollow = {}
+      unfollow.user_id = result[0].id;
+      unfollow.cat_id = request.params.id;
+      db.users.unfollowCat(unfollow, (error, result) => {
+        response.send( result );
+      });
+    });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -177,7 +231,9 @@ module.exports = (db) => {
     loginUser: postUser,
     logoutUser: exitUser,
     showUser, editUser,
-    updateUser: putUser
+    updateUser: putUser,
+    followCat: postCat,
+    unfollowCat: deleteCat
   };
 
 }

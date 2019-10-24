@@ -62,7 +62,7 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
-    let updateCat = (cat, callback) => {
+  let updateCat = (cat, callback) => {
     let input = [ cat.update.name, cat.update.description, cat.update.location, cat.id ];
     let query = 'UPDATE cats SET name=$1, description=$2, location=$3 WHERE id=$4 RETURNING *';
 
@@ -79,7 +79,6 @@ module.exports = (dbPoolInstance) => {
       }
     });
   };
-
 
   return {
     registerCat,

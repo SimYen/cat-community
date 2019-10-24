@@ -14,6 +14,9 @@ class Profile extends React.Component {
                 Added by: {display.user_name} on {display.cat.to_char}<br/>
                 <input type="submit" value="Update"/>
             </form>
+            <form method="POST" action={"/user/cat/" + display.cat.id}>
+                <input type="submit" value="Follow"/>
+            </form>
         </body>
       </html>
     );

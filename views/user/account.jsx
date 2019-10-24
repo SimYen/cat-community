@@ -3,7 +3,6 @@ var React = require("react");
 class User extends React.Component {
   render() {
     let display=this.props.account;
-    if (display.user) { console.log("login user") } else { console.log("register user") };
     return (
       <html>
         <head />
@@ -14,6 +13,9 @@ class User extends React.Component {
                 Username: <input type="text" name="name" defaultValue={display.user.name} required/><br/>
                 Password: <input type="password" name="password" required/><br/>
                 <input type="submit" value="Submit"/>
+            </form>
+            <form method="POST" action={"/user/cat/" + cat.id}>
+                <input type="submit" value="Follow"/>
             </form>
         </body>
       </html>
