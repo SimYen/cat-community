@@ -220,6 +220,13 @@ module.exports = (db) => {
     });
   };
 
+  let catFollow = (request, response) => {
+    let cat = request.params.id;
+    db.cats.follow(cat, (error, result) => {
+      console.log("cat followers");
+      response.send( result );
+    });
+  };
   /**
    * ===========================================
    * Export controller functions as a module
@@ -232,7 +239,8 @@ module.exports = (db) => {
     showCat: getCat,
     editCat,
     updateCat: putCat,
-    feedCat, catFed
+    feedCat, catFed,
+    catFollow
   };
 
 }

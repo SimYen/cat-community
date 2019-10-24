@@ -46,7 +46,8 @@ module.exports = (dbPoolInstance) => {
 
   let showCat = (cat, callback) => {
     let id = [ cat ];
-    let query = 'SELECT id, name, description, location, to_char(added_at, \'DD/MM/YYYY\'), user_id FROM cats WHERE id=$1';
+    let query = 'SELECT id, name, description, location, to_char(added_at, \'DD/MM/YYYY\'), user_id ' +
+                'FROM cats WHERE id=$1';
 
     dbPoolInstance.query(query, id, (error, queryResult) => {
       if( error ){
@@ -117,11 +118,31 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let follow = (cat, callback) => {
+    let input = [ cat ];
+    let query = 'SELECT user_cat.user_id, users.name FROM user_cat JOIN users ' +
+                'ON user_cat.user_id=users.id WHERE user_cat.cat_id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   return {
     registerCat,
     allCats,
     showCat,
     updateCat,
-    fedCat, fed
+    fedCat, fed,
+    follow
   };
 };

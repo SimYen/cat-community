@@ -35,4 +35,5 @@ module.exports = (app, allModels) => {
   app.put('/cat/:id', catController.updateCat);
   app.put('/fed/:id', catController.feedCat);
   app.get('/cat/:id/fed', catController.catFed);
+  app.get('/cat/:id/follow', catController.catFollow);
 };
