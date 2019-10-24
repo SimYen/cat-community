@@ -3,6 +3,7 @@ var React = require("react");
 class Profile extends React.Component {
   render() {
     let display = this.props;
+    console.log(display);
     return (
       <html>
         <head />
@@ -11,7 +12,7 @@ class Profile extends React.Component {
             <form method="GET" action={display.formAction}>
                 Description: {display.cat.description}<br/>
                 Location: {display.cat.location}<br/>
-                Added by: {display.user_name} on {display.cat.to_char}<br/>
+                Added by: <a href={"/user/" + display.cat.user_id}>{display.user_name}</a> on {display.cat.to_char}<br/>
                 <input type="submit" value="Update"/>
             </form>
             <form method="POST" action={"/user/cat/" + display.cat.id}>

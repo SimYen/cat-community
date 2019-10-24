@@ -225,7 +225,6 @@ module.exports = (db) => {
 
   let followUser = (request, response) => {
     // check if user is login
-    console.log("follow user");
     let user = request.cookies.name;
     if (user === undefined) {
       // redirect to login
@@ -243,7 +242,7 @@ module.exports = (db) => {
             console.log("follow user");
             let follow = {}
             follow.user_id = result[0].id;
-            follow.follower_id = request.params.id;
+            follow.follower_id = parseInt(request.params.id);
             db.users.follower(follow, (error, result) => {
               response.send( result );
             });

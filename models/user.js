@@ -151,7 +151,7 @@ module.exports = (dbPoolInstance) => {
 
   let follower = (follow, callback) => {
     let input = [ follow.user_id, follow.follower_id ];
-    let query = 'INSERT INTO followers (user_id, cat_id) VALUES ($1, $2) RETURNING *';
+    let query = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
