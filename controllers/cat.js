@@ -226,6 +226,14 @@ module.exports = (db) => {
       response.send( result );
     });
   };
+
+  let catsFed = (request, response) => {
+    db.cats.allFed((error, result) => {
+      console.log("cats fed");
+      response.send( result );
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -239,7 +247,7 @@ module.exports = (db) => {
     editCat,
     updateCat: putCat,
     feedCat, catFed,
-    catFollow
+    catFollow, catsFed
   };
 
 }

@@ -187,7 +187,7 @@ module.exports = (dbPoolInstance) => {
 
   let getCatsAdd = (user, callback) => {
     let input = [ user ];
-    let query = 'SELECT cats.id, cats.name FROM cats WHERE user_id=$1';
+    let query = 'SELECT id, name FROM cats WHERE user_id=$1 ORDER BY added_at DESC';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -206,7 +206,8 @@ module.exports = (dbPoolInstance) => {
   let getCatsFed = (user, callback) => {
     let input = [ user ];
     let query = 'SELECT cat_fed.cat_id, cats.name, to_char(cat_fed.fed_at, \'DD/MM/YYYY HH24:MI\') ' +
-                'FROM cat_fed JOIN cats ON cat_fed.cat_id=cats.id WHERE cat_fed.user_id=1';
+                'FROM cat_fed JOIN cats ON cat_fed.cat_id=cats.id ' +
+                'WHERE cat_fed.user_id=$1 ORDER BY to_char DESC';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){

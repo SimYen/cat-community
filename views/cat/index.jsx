@@ -1,4 +1,5 @@
 var React = require("react");
+const LAYOUT = require('./../layout.jsx');
 
 class Home extends React.Component {
   render() {
@@ -19,9 +20,7 @@ class Home extends React.Component {
         );
     });
     return (
-      <html>
-        <head />
-        <body>
+        <LAYOUT>
           <h1>FEEDR</h1>
           <h2>{display.user}</h2>
           <form method="GET" action={display.formAction1}>
@@ -37,8 +36,7 @@ class Home extends React.Component {
           <ul>
             {cats}
           </ul>
-        </body>
-      </html>
+        </LAYOUT>
     );
   }
 }
