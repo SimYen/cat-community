@@ -272,6 +272,33 @@ module.exports = (db) => {
     });
   };
 
+  let catFollow = (request, response) => {
+    // get user id
+    user = request.params.id;
+    console.log("get cats followed");
+    db.users.getFollowCats(user, (error, result) => {
+      response.send( result );
+    });
+  };
+
+  let catAdd = (request, response) => {
+    // get user id
+    user = request.params.id;
+    console.log("get cats added");
+    db.users.getCatsAdd(user, (error, result) => {
+        response.send( result );
+    })
+  }
+
+  let fedCat = (request, response) => {
+    // get user id
+    user = request.params.id;
+    console.log("get cats fed");
+    db.users.getCatsFed(user, (error, result) => {
+        response.send( result );
+    })
+  }
+
   let postFollow = (request, response) => {
     // check if user is login
     let user = request.cookies.name;
@@ -321,13 +348,24 @@ module.exports = (db) => {
     });
   };
 
-  let catFollow = (request, response) => {
+  let following = (request, response) => {
     // get user id
     user = request.params.id;
-    db.users.getFollowCats(user, (error, result) => {
-      response.send( result );
-    });
-  };
+    console.log("get following");
+    db.users.getFollowing(user, (error, result) => {
+        response.send( result );
+    })
+  }
+
+  let follower = (request, response) => {
+    // get user id
+    user = request.params.id;
+    console.log("get followers");
+    db.users.getFollower(user, (error, result) => {
+        response.send( result );
+    })
+  }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -344,9 +382,9 @@ module.exports = (db) => {
     allUsers: getUsers,
     followCat: postCat,
     unfollowCat: deleteCat,
+    catFollow, catAdd, fedCat,
     followUser: postFollow,
     unfollowUser: deleteFollow,
-    catFollow
+    following, follower
   };
-
 }

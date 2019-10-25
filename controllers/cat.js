@@ -144,7 +144,6 @@ module.exports = (db) => {
             console.log("update cat info");
             let cat_id = request.params.id;
             db.cats.showCat(cat_id, (error, result) => {
-              console.log(result);
               let cat = {};
               cat.title = "Update Cat Status";
               cat.formAction = "/cat/" + cat_id + "/?_method=put";

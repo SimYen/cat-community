@@ -185,6 +185,43 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  let getCatsAdd = (user, callback) => {
+    let input = [ user ];
+    let query = 'SELECT cats.id, cats.name FROM cats WHERE user_id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
+  let getCatsFed = (user, callback) => {
+    let input = [ user ];
+    let query = 'SELECT cat_fed.cat_id, cats.name, to_char(cat_fed.fed_at, \'DD/MM/YYYY HH24:MI\') ' +
+                'FROM cat_fed JOIN cats ON cat_fed.cat_id=cats.id WHERE cat_fed.user_id=1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  };
+
   let follow = (follow, callback) => {
     let input = [ follow.user_id, follow.follower_id ];
     let query = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
@@ -239,6 +276,44 @@ module.exports = (dbPoolInstance) => {
     });
   }
 
+  let getFollowing = (user, callback) => {
+    let input = [ user ];
+    let query = 'SELECT followers.follower_id, users.name FROM followers JOIN users ' +
+                'ON followers.follower_id=users.id WHERE followers.user_id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  }
+
+  let getFollower = (user, callback) => {
+    let input = [ user ];
+    let query = 'SELECT followers.follower_id, users.name FROM followers JOIN users ' +
+                'ON followers.follower_id=users.id WHERE followers.user_id=$1';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }else{
+        // invoke callback function with results after query has executed
+        if( queryResult.rows.length > 0 ){
+          callback(null, queryResult.rows);
+        }else{
+          callback(null, null);
+        }
+      }
+    });
+  }
+
   let allUsers = (callback) => {
     let query = 'SELECT id, name, to_char(joined_at, \'DD/MM/YYYY\') FROM users ORDER BY joined_at DESC';
 
@@ -267,8 +342,12 @@ module.exports = (dbPoolInstance) => {
     followCat, unfollowCat,
     getFollowCat, // check if following cat
     getFollowCats,
+    getCatsAdd,
+    getCatsFed,
     follow, unfollow,
     getFollow, // check if following user
+    getFollowing,
+    getFollower,
     allUsers
   };
 };
