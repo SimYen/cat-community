@@ -20,23 +20,26 @@ class Home extends React.Component {
         );
     });
     return (
-        <LAYOUT>
-          <h1>FEEDR</h1>
-          <h2>{display.user}</h2>
-          <form method="GET" action={display.formAction1}>
-            <input type="submit" value={display.button1}/>
-          </form>
-          {logout}
-          <form method="GET" action={display.formAction2}>
-            <input type="submit" value={display.button2}/>
-          </form>
+      <LAYOUT>
+        <main role="main">
+          <section class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading">Community For Catlovers</h1>
+              <p class="lead text-muted">Support and follow our community cats and their carers.<br/>Be a carer yourself and contribute to the welfare of our community cats.</p>
+              <p>
+                <a href={display.formAction1} class="btn btn-primary my-2">{display.button1}</a>&nbsp;&nbsp;&nbsp;
+                <a href={display.formAction2} class="btn btn-secondary my-2">{display.button2}</a>
+              </p>
+            </div>
+          </section>
           <form method="GET" action="/user">
             <input type="submit" value="View Users"/>
           </form>
           <ul>
             {cats}
           </ul>
-        </LAYOUT>
+        </main>
+      </LAYOUT>
     );
   }
 }
