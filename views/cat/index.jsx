@@ -27,7 +27,7 @@ class Home extends React.Component {
               <h1 class="jumbotron-heading">Community For Catlovers</h1>
               <p class="lead text-muted">Support and follow our community cats and their carers.<br/>Be a carer yourself and contribute to the welfare of our community cats.</p>
               <p>
-                <a href={display.formAction1} class="btn btn-primary my-2">{display.button1}</a>&nbsp;&nbsp;&nbsp;
+                <a href={display.formAction1} class="btn btn-primary my-2">{display.button1}</a>&nbsp;
                 <a href={display.formAction2} class="btn btn-secondary my-2">{display.button2}</a>
               </p>
             </div>
