@@ -98,7 +98,7 @@ module.exports = (db) => {
       if (request.cookies.name === user.account.name) {
         user.method = "GET";
         user.formAction = "/user/" + user.account.id + "/edit";
-        user.button = "Update";
+        user.button = "Change Password";
         response.render('user/profile', user )
       } else {
           // check if user is login

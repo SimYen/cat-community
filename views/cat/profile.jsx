@@ -1,27 +1,32 @@
 var React = require("react");
+const LAYOUT = require('./../layout.jsx');
 
 class Profile extends React.Component {
   render() {
     let display = this.props;
     return (
-      <html>
-        <head />
-        <body>
-          <h3>{display.cat.name}</h3>
-          <form method={display.method} action={display.formAction}>
-            <input type="submit" value={display.button}/>
-          </form>
-          <form method="POST" action={"/fed/" + display.cat.id + "?_method=put"}>
-            <input type="submit" value={"Feed " + display.cat.name}/>
-          </form>
-          <form method="GET" action={"/cat/" + display.cat.id + "/edit"}>
-            Description: {display.cat.description}<br/>
-            Location: {display.cat.location}<br/>
-            Added by: <a href={"/user/" + display.cat.user_id}>{display.user_name}</a> on {display.cat.to_char}<br/>
-            <input type="submit" value="Update"/>
-          </form>
-        </body>
-      </html>
+      <LAYOUT>
+        <main role="main">
+          <section class="jumbotron text-center">
+            <div class="container">
+              <img class="mb-4" src="/image/tunaRound.jpg" alt="" width="200" height="200"/>
+              <h1 class="jumbotron-heading">{display.cat.name}</h1>
+              <p>Description: {display.cat.description}<br/>
+              Location: {display.cat.location}<br/>
+              Added by: <a href={"/user/" + display.cat.user_id}>{display.user_name}</a> on {display.cat.to_char}</p>
+              <form class="form-signin" method="GET" action={"/cat/" + display.cat.id + "/edit"}>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+              </form>
+              <form class="form-signin" method={display.method} action={display.formAction}>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">{display.button}</button>
+              </form>
+              <form class="form-signin" method="POST" action={"/fed/" + display.cat.id + "?_method=put"}>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">{"Feed " + display.cat.name}</button>
+              </form>
+            </div>
+          </section>
+        </main>
+      </LAYOUT>
     );
   }
 }
