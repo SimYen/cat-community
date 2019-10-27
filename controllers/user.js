@@ -168,8 +168,9 @@ module.exports = (db) => {
     // update user information
     let user_id = request.params.id;
     let user = request.body;
+    user.id = user_id;
     // check if name already exist
-    db.users.checkUserId(user.name, (error, result) => {
+    db.users.checkName(user, (error, result) => {
       // if exist, request another name
       if (result !== null) {
         let account = {};

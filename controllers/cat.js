@@ -72,7 +72,7 @@ module.exports = (db) => {
           db.users.checkUserId(user, (error, account) => {
             display.user = user;
             display.formAction1 = "/user/" + account[0].id;
-            display.button1 = "Profile";
+            display.button1 = "Your Profile";
             display.formAction2 = "/new";
             display.button2 = "Add A Cat";
             response.render('cat/index', display);

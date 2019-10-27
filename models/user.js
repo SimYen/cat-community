@@ -94,6 +94,23 @@ module.exports = (dbPoolInstance) => {
     });
   };
 
+  let checkName = (user, callback) => {
+    let input = [ user.name, user.id ];
+    let query = 'SELECT * FROM users WHERE name=$1 AND id<>$2';
+
+    dbPoolInstance.query(query, input, (error, queryResult) => {
+      if( error ){
+        callback(error, null);
+      }
+    // invoke callback function with results after query has executed
+      if( queryResult.rows.length > 0 ){
+        callback(null, queryResult.rows);
+      }else{
+        callback(null, null);
+      }
+    });
+  };
+
   let updateUser = (user, callback) => {
     let input = [ user.name, user.password, user.id ];
     let query = 'UPDATE users SET name=$1, password=$2 WHERE id=$3 RETURNING *';
@@ -338,6 +355,7 @@ module.exports = (dbPoolInstance) => {
     currentUser,
     wrongPassword,
     wrongName,
+    checkName,
     getUserName, // check using id, no password, date formatted
     updateUser,
     followCat, unfollowCat,
