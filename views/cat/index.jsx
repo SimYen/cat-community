@@ -24,7 +24,7 @@ class Home extends React.Component {
         <main role="main">
           <section class="jumbotron text-center">
             <div class="container">
-              <img class="mb-4" src="/image/strayCatFeeder.png" alt="" width="200" height="200"/>
+              <img class="mb-4" src="/image/strayCatFeederLogo.png" alt="" width="200" height="200"/>
               <h1 class="jumbotron-heading">Community For Catlovers</h1>
               <p class="lead text-muted">Support and follow our community cats and their carers.<br/>Be a carer yourself and contribute to the welfare of our community cats.</p>
               <p>

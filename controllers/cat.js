@@ -230,7 +230,7 @@ module.exports = (db) => {
   let catsFed = (request, response) => {
     db.cats.allFed((error, result) => {
       console.log("cats fed");
-      response.send( result );
+      response.send({ result });
     });
   };
 

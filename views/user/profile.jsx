@@ -9,7 +9,7 @@ class Profile extends React.Component {
         <main role="main">
           <section class="jumbotron text-center">
             <div class="container">
-              <img class="mb-4" src="/image/iFindYouVeryAppeeling.jpg" alt="" width="200" height="200"/>
+              <img class="mb-4" src="/image/strayCatFeederLogo.png" alt="" width="200" height="200"/>
               <h1 class="jumbotron-heading">{display.account.name}</h1>
               <p>Joined on {display.account.to_char}</p>
               <form class="form-signin" method={display.method} action={display.formAction}>

@@ -8,8 +8,10 @@ class Profile extends React.Component {
       <LAYOUT>
         <main role="main">
           <section class="jumbotron text-center">
-            <div class="container">
-              <img class="mb-4" src="/image/tunaRound.jpg" alt="" width="200" height="200"/>
+            <div class="row">
+
+            <div class="col-sm">
+              <img class="mb-4" src="/image/iveFallenForYou.jpg" alt="" width="200" height="200"/>
               <h1 class="jumbotron-heading">{display.cat.name}</h1>
               <p>Description: {display.cat.description}<br/>
               Location: {display.cat.location}<br/>
@@ -24,8 +26,13 @@ class Profile extends React.Component {
                 <button class="btn btn-lg btn-primary btn-block" type="submit">{"Feed " + display.cat.name}</button>
               </form>
             </div>
+
+              <div class="col-sm" id="cat-info"><h1>Cat Info</h1></div>
+            </div>
           </section>
         </main>
+        <script src="/script/catinfo.js"/>
+        <script dangerouslySetInnerHTML={ {__html:`var cat_id = '${display.cat.id}';`}}/>
       </LAYOUT>
     );
   }
