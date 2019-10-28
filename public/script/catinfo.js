@@ -6,20 +6,24 @@ var responseHandler = function() {
   var response = JSON.parse( this.responseText );
   console.log( response );
 
-  var fed = document.getElementById('cat-info');
+  var fedInfo = document.getElementById('cat-info');
   var display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
   // display.innerText = "Owner: " + response.result[0].owner;
-  response.result.forEach(cat => {
-    console.log(cat);
-    if (cat.cat_id === parseInt(cat_id)) {
+  response.result.forEach(fed => {
+    console.log(fed);
+    if (fed.cat_id === parseInt(cat_id)) {
+      var feeder = document.createElement('a');
+      feeder.href = "/user/" + fed.id;
+      feeder.innerText = fed.name;
       var li = document.createElement('li');
       li.classList.add("list-group-item");
-      li.innerText = "Fed on: "+ cat.to_char +", by: "+ cat.name;
+      li.innerHTML = "Fed on " + fed.to_char + " by ";
+      li.appendChild(feeder);
       display.appendChild(li);
     };
   })
-  fed.appendChild(display);
+  fedInfo.appendChild(display);
 };
 
 // make a new request

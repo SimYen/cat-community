@@ -20,14 +20,18 @@ class Profile extends React.Component {
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
               </form>
               <form class="form-signin" method={display.method} action={display.formAction}>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">{display.button}</button>
+                <button class="btn btn-lg btn-info btn-block" type="submit">{display.button}</button>
               </form>
               <form class="form-signin" method="POST" action={"/fed/" + display.cat.id + "?_method=put"}>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">{"Feed " + display.cat.name}</button>
+                <button class="btn btn-lg btn-warning btn-block" type="submit">{"Feed " + display.cat.name}</button>
               </form>
             </div>
 
-              <div class="col-sm" id="cat-info"><h1>Cat Info</h1></div>
+            <div class="col-sm">
+              <h1>Cat Info</h1>
+              <div class="card" id="cat-info"></div>
+            </div>
+
             </div>
           </section>
         </main>
