@@ -1,39 +1,75 @@
 console.log("retrieving cat info");
 
-// what to do when we recieve the request
-var responseHandler = function() {
-  console.log("getting info for cat_id: " + cat_id);
+// get fed info
+var fedInfo = function() {
   var response = JSON.parse( this.responseText );
-  console.log( response );
-
   var fedInfo = document.getElementById('cat-info');
+  // clear display for info
+  fedInfo.innerHTML = "";
   var display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  // display.innerText = "Owner: " + response.result[0].owner;
   response.result.forEach(fed => {
-    console.log(fed);
-    if (fed.cat_id === parseInt(cat_id)) {
-      var feeder = document.createElement('a');
-      feeder.href = "/user/" + fed.id;
-      feeder.innerText = fed.name;
-      var li = document.createElement('li');
-      li.classList.add("list-group-item");
-      li.innerHTML = "Fed on " + fed.to_char + " by ";
-      li.appendChild(feeder);
-      display.appendChild(li);
-    };
+    //.create fed info list
+    var li = document.createElement('li');
+    li.classList.add("list-group-item");
+    li.innerHTML = "Fed on " + fed.to_char + " by ";
+    // create link to feeder
+    var feeder = document.createElement('a');
+    feeder.href = "/user/" + fed.id;
+    feeder.innerText = fed.name;
+    li.appendChild(feeder);
+    display.appendChild(li);
   })
   fedInfo.appendChild(display);
 };
 
-// make a new request
-var request = new XMLHttpRequest();
+// get follow info
+var followInfo = function() {
+  var response = JSON.parse( this.responseText );
+  var followInfo = document.getElementById('cat-info');
+  // clear display for info
+  followInfo.innerHTML = "";
+  var display = document.createElement('ul');
+  display.classList.add("list-group", "list-group-flush");
+  response.result.forEach(follow => {
+    //.create follower info list
+    var li = document.createElement('li');
+    li.classList.add("list-group-item");
+    // create link to follower
+    var follower = document.createElement('a');
+    follower.href = "/user/" + follow.user_id;
+    follower.innerText = follow.name;
+    li.appendChild(follower);
+    display.appendChild(li);
+  })
+  followInfo.appendChild(display);
+};
 
-// listen for the request response
-request.addEventListener("load", responseHandler);
+// get cat id
+var getFed = function(event){
+    console.log("fed info for cat_id: " + cat_id);
+    // make a new request
+    var request = new XMLHttpRequest();
+    // listen for the request response
+    request.addEventListener("load", fedInfo);
+    // ready the system by calling open, and specifying the url
+    request.open("GET", "/cat/" + cat_id + "/fed");
+    // send the request
+    request.send();
+};
 
-// ready the system by calling open, and specifying the url
-request.open("GET", "/cat");
+// get cat id
+var getFollow = function(event){
+    console.log("follow info for cat_id: " + cat_id);
+    // make a new request
+    var request = new XMLHttpRequest();
+    // listen for the request response
+    request.addEventListener("load", followInfo);
+    // ready the system by calling open, and specifying the url
+    request.open("GET", "/cat/" + cat_id + "/follow");
+    // send the request
+    request.send();
+};
 
-// send the request
-request.send();
+document.querySelector('#catfed').addEventListener('click', getFed);
+document.querySelector('#catfollow').addEventListener('click', getFollow);

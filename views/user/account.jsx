@@ -12,7 +12,7 @@ class User extends React.Component {
               <img class="mb-4" src="/image/beLeafInYourself.jpg" alt="" width="200" height="200"/>
               <h1 class="jumbotron-heading">{display.title}</h1>
                 <form class="form-signin" method="POST" action={display.formAction}>
-                  <font color="red">{display.message}</font>
+                  <p class="text-danger">{display.message}</p>
                   <label for="userName" class="sr-only">Username</label>
                     <input type="text" id="userName" name="name" class="form-control" defaultValue={display.user.name} placeholder="Username" required autofocus/>
                   <label for="password" class="sr-only">Password</label>

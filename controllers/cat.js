@@ -215,7 +215,7 @@ module.exports = (db) => {
     let cat = request.params.id;
     db.cats.fed(cat, (error, result) => {
       console.log("cat fed info");
-      response.send( result );
+      response.send({ result });
     });
   };
 
@@ -223,7 +223,7 @@ module.exports = (db) => {
     let cat = request.params.id;
     db.cats.follow(cat, (error, result) => {
       console.log("cat followers");
-      response.send( result );
+      response.send({ result });
     });
   };
 
