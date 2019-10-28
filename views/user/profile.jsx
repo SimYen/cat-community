@@ -24,7 +24,7 @@ class Profile extends React.Component {
                 <div class="btn-group" role="group" aria-label="User Info">
                   <button class="btn btn-secondary" id="catadd" type="submit">Added</button>
                   <button class="btn btn-success" id="catfed" type="submit">Fed</button>
-                  <button class="btn btn-info" id="catfollow" type="submit">Cats</button>
+                  <button class="btn btn-info" id="catfollow" type="submit">Tracking</button>
                   <button class="btn btn-warning" id="following" type="submit">Following</button>
                   <button class="btn btn-danger" id="followers" type="submit">Followers</button>
                 </div>

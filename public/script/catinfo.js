@@ -47,7 +47,7 @@ var followInfo = function() {
 
 // get cat id
 var getFed = function(event){
-    console.log("fed info for cat_id: " + cat_id);
+    console.log("fed info for cat");
     // make a new request
     var request = new XMLHttpRequest();
     // listen for the request response
@@ -60,7 +60,7 @@ var getFed = function(event){
 
 // get cat id
 var getFollow = function(event){
-    console.log("follow info for cat_id: " + cat_id);
+    console.log("follow info for cat");
     // make a new request
     var request = new XMLHttpRequest();
     // listen for the request response
