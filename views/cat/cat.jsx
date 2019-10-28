@@ -9,11 +9,9 @@ class Cat extends React.Component {
       <LAYOUT>
         <main role="main">
           <section class="jumbotron text-center">
-            <div class="row">
-
-            <div class="col-sm">
+            <div class="container">
               <img class="mb-4" src="/image/oneInAMelon.jpg" alt="" width="200" height="200"/>
-              <h1 {/*class="jumbotron-heading"*/}>{display.title}</h1>
+              <h1 class="jumbotron-heading">{display.title}</h1>
               <form class="form-signin" method="POST" action={display.formAction}>
                 <label for="catName" class="sr-only">Cat Name</label>
                   <input type="text" id="catName" name="name" class="form-control" defaultValue={display.cat.name} placeholder="Cat name" required autofocus/>
@@ -23,13 +21,9 @@ class Cat extends React.Component {
                   <input type="text" id="location" name="location" class="form-control" defaultValue={display.cat.location} placeholder="Location of cat" required/>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="searchlocation">Submit</button>
               </form>
-              </div>
-
-              <div class="col-sm" id="cat-info"><h1>Cat Status</h1></div>
             </div>
           </section>
         </main>
-        <script src="/script/status.js"/>
       </LAYOUT>
     );
   }
