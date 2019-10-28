@@ -1,19 +1,19 @@
 console.log("retrieving user info");
 
 // get add info
-var addInfo = function() {
-  var response = JSON.parse( this.responseText );
-  var followInfo = document.getElementById('user-info');
+let addInfo = function() {
+  let response = JSON.parse( this.responseText );
+  let followInfo = document.getElementById('user-info');
   // clear display for info
   followInfo.innerHTML = "";
-  var display = document.createElement('ul');
+  let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
   response.result.forEach(add => {
     //.create follower info list
-    var li = document.createElement('li');
+    let li = document.createElement('li');
     li.classList.add("list-group-item");
     // create link to follower
-    var cat = document.createElement('a');
+    let cat = document.createElement('a');
     cat.href = "/cat/" + add.id;
     cat.innerText = add.name;
     li.appendChild(cat);
@@ -23,20 +23,20 @@ var addInfo = function() {
 };
 
 // get fed info
-var fedInfo = function() {
-  var response = JSON.parse( this.responseText );
-  var fedInfo = document.getElementById('user-info');
+let fedInfo = function() {
+  let response = JSON.parse( this.responseText );
+  let fedInfo = document.getElementById('user-info');
   // clear display for info
   fedInfo.innerHTML = "";
-  var display = document.createElement('ul');
+  let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
   response.result.forEach(fed => {
     //.create fed info list
-    var li = document.createElement('li');
+    let li = document.createElement('li');
     li.classList.add("list-group-item");
     li.innerHTML = "Fed on " + fed.to_char + ", ";
     // create link to feeder
-    var cat = document.createElement('a');
+    let cat = document.createElement('a');
     cat.href = "/cat/" + fed.cat_id;
     cat.innerText = fed.name;
     li.appendChild(cat);
@@ -46,19 +46,19 @@ var fedInfo = function() {
 };
 
 // get following cat info
-var catInfo = function() {
-  var response = JSON.parse( this.responseText );
-  var followInfo = document.getElementById('user-info');
+let catInfo = function() {
+  let response = JSON.parse( this.responseText );
+  let followInfo = document.getElementById('user-info');
   // clear display for info
   followInfo.innerHTML = "";
-  var display = document.createElement('ul');
+  let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
   response.result.forEach(follow => {
     //.create follower info list
-    var li = document.createElement('li');
+    let li = document.createElement('li');
     li.classList.add("list-group-item");
     // create link to follower
-    var cat = document.createElement('a');
+    let cat = document.createElement('a');
     cat.href = "/cat/" + follow.cat_id;
     cat.innerText = follow.name;
     li.appendChild(cat);
@@ -67,11 +67,54 @@ var catInfo = function() {
   followInfo.appendChild(display);
 };
 
-// get cat id
-var getAdd = function(event){
+// get follow info
+let followInfo = function() {
+  let response = JSON.parse( this.responseText );
+  let followInfo = document.getElementById('user-info');
+  // clear display for info
+  followInfo.innerHTML = "";
+  let display = document.createElement('ul');
+  display.classList.add("list-group", "list-group-flush");
+  response.result.forEach(follow => {
+    //.create follower info list
+    let li = document.createElement('li');
+    li.classList.add("list-group-item");
+    // create link to follower
+    let user = document.createElement('a');
+    user.href = "/user/" + follow.follower_id;
+    user.innerText = follow.name;
+    li.appendChild(user);
+    display.appendChild(li);
+  })
+  followInfo.appendChild(display);
+};
+
+// get follower info
+let followerInfo = function() {
+  let response = JSON.parse( this.responseText );
+  let followInfo = document.getElementById('user-info');
+  // clear display for info
+  followInfo.innerHTML = "";
+  let display = document.createElement('ul');
+  display.classList.add("list-group", "list-group-flush");
+  response.result.forEach(follow => {
+    //.create follower info list
+    let li = document.createElement('li');
+    li.classList.add("list-group-item");
+    // create link to follower
+    let user = document.createElement('a');
+    user.href = "/user/" + follow.follower_id;
+    user.innerText = follow.name;
+    li.appendChild(user);
+    display.appendChild(li);
+  })
+  followInfo.appendChild(display);
+};
+
+let getAdd = function(event){
     console.log("cats added by user");
     // make a new request
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     // listen for the request response
     request.addEventListener("load", addInfo);
     // ready the system by calling open, and specifying the url
@@ -80,11 +123,10 @@ var getAdd = function(event){
     request.send();
 };
 
-// get cat id
-var getFed = function(event){
+let getFed = function(event){
     console.log("cats fed by user");
     // make a new request
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     // listen for the request response
     request.addEventListener("load", fedInfo);
     // ready the system by calling open, and specifying the url
@@ -93,11 +135,10 @@ var getFed = function(event){
     request.send();
 };
 
-// get cat id
-var getCat = function(event){
+let getCat = function(event){
     console.log("cats followed by user");
     // make a new request
-    var request = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
     // listen for the request response
     request.addEventListener("load", catInfo);
     // ready the system by calling open, and specifying the url
@@ -106,6 +147,32 @@ var getCat = function(event){
     request.send();
 };
 
+let getFollows = function(event){
+    console.log("get user following");
+    // make a new request
+    let request = new XMLHttpRequest();
+    // listen for the request response
+    request.addEventListener("load", followInfo);
+    // ready the system by calling open, and specifying the url
+    request.open("GET", "/user/" + user_id + "/follow");
+    // send the request
+    request.send();
+};
+
+let getFollower = function(event){
+    console.log("get user followed by");
+    // make a new request
+    let request = new XMLHttpRequest();
+    // listen for the request response
+    request.addEventListener("load", followerInfo);
+    // ready the system by calling open, and specifying the url
+    request.open("GET", "/user/" + user_id + "/following");
+    // send the request
+    request.send();
+}
+
 document.querySelector('#catadd').addEventListener('click', getAdd);
 document.querySelector('#catfed').addEventListener('click', getFed);
 document.querySelector('#catfollow').addEventListener('click', getCat);
+document.querySelector('#following').addEventListener('click', getFollows);
+document.querySelector('#followers').addEventListener('click', getFollower);

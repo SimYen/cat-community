@@ -18,7 +18,7 @@ class Layout extends React.Component {
               <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                   <h4 class="text-white">About</h4>
-                  <p class="text-muted">FEEDR is about caring about our community cats, and information sharing with fellow cat-carers. Through this platform, we hope to bring together like-minded individuals to create a community to better the welfare of our community cats.</p>
+                  <p class="text-muted">FEEDR is about taking care of our community cats, and information sharing with fellow cat-carers. Through this platform, we hope to bring together like-minded individuals to create a community to better the welfare of our community cats.</p>
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                   <h4 class="text-white">Join Now</h4>

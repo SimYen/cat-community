@@ -9,7 +9,7 @@ class User extends React.Component {
         <main role="main">
           <section class="jumbotron text-center">
             <div class="container">
-              <img class="mb-4" src="/image/beLeafInYourself.jpg" alt="" width="200" height="200"/>
+              <img class="mb-4" src={display.img} alt="" width="200" height="200"/>
               <h1 class="jumbotron-heading">{display.title}</h1>
                 <form class="form-signin" method="POST" action={display.formAction}>
                   <p class="text-danger">{display.message}</p>

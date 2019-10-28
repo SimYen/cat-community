@@ -23,6 +23,7 @@ module.exports = (db) => {
       // if exist, request another name
       if (result !== null) {
         let account = {};
+        account.img = "/image/beLeafInYourself.jpg";
         account.title = "Register Account";
         account.message = "Name already taken, please choose another name.";
         account.formAction = "/register";
@@ -354,7 +355,7 @@ module.exports = (db) => {
     user = request.params.id;
     console.log("get following");
     db.users.getFollowing(user, (error, result) => {
-        response.send( result );
+        response.send({ result });
     })
   }
 
@@ -363,7 +364,7 @@ module.exports = (db) => {
     user = request.params.id;
     console.log("get followers");
     db.users.getFollower(user, (error, result) => {
-        response.send( result );
+        response.send({ result });
     })
   }
 

@@ -9,6 +9,7 @@ module.exports = (dbPoolInstance) => {
 
   let newUser = (callback) => {
     let account = {};
+    account.img = "/image/beLeafInYourself.jpg";
     account.title = "Register Account";
     account.formAction = "/register";
     account.user = 0;
@@ -53,6 +54,7 @@ module.exports = (dbPoolInstance) => {
 
   let currentUser = (callback) => {
     let account = {};
+    account.img = "/image/iFindYouVeryAppeeling.jpg";
     account.title = "Login Account";
     account.formAction = "/login";
     account.user = 0;
@@ -61,6 +63,7 @@ module.exports = (dbPoolInstance) => {
 
   let wrongPassword = (callback) => {
     let account = {};
+    account.img = "/image/iFindYouVeryAppeeling.jpg";
     account.title = "Login Account";
     account.message = "Incorrect password, please try again.";
     account.formAction = "/login";
@@ -70,6 +73,7 @@ module.exports = (dbPoolInstance) => {
 
   let wrongName = (callback) => {
     let account = {};
+    account.img = "/image/iFindYouVeryAppeeling.jpg";
     account.title = "Login Account";
     account.message = "Incorrect name, please try again.";
     account.formAction = "/login";
