@@ -296,7 +296,7 @@ module.exports = (db) => {
     user = request.params.id;
     console.log("get cats fed");
     db.users.getCatsFed(user, (error, result) => {
-        response.send( result );
+        response.send({ result });
     })
   }
 

@@ -1,9 +1,8 @@
 console.log("retrieving user info");
 
-// get follow info
+// get add info
 var addInfo = function() {
   var response = JSON.parse( this.responseText );
-  console.log(response);
   var followInfo = document.getElementById('user-info');
   // clear display for info
   followInfo.innerHTML = "";
@@ -23,6 +22,29 @@ var addInfo = function() {
   followInfo.appendChild(display);
 };
 
+// get fed info
+var fedInfo = function() {
+  var response = JSON.parse( this.responseText );
+  var fedInfo = document.getElementById('user-info');
+  // clear display for info
+  fedInfo.innerHTML = "";
+  var display = document.createElement('ul');
+  display.classList.add("list-group", "list-group-flush");
+  response.result.forEach(fed => {
+    //.create fed info list
+    var li = document.createElement('li');
+    li.classList.add("list-group-item");
+    li.innerHTML = "Fed on " + fed.to_char + ", ";
+    // create link to feeder
+    var cat = document.createElement('a');
+    cat.href = "/cat/" + fed.cat_id;
+    cat.innerText = fed.name;
+    li.appendChild(cat);
+    display.appendChild(li);
+  })
+  fedInfo.appendChild(display);
+};
+
 // get cat id
 var getAdd = function(event){
     console.log("Cats added by user_id: " + user_id);
@@ -36,4 +58,18 @@ var getAdd = function(event){
     request.send();
 };
 
+// get cat id
+var getFed = function(event){
+    console.log("Cats fed by user_id: " + user_id);
+    // make a new request
+    var request = new XMLHttpRequest();
+    // listen for the request response
+    request.addEventListener("load", fedInfo);
+    // ready the system by calling open, and specifying the url
+    request.open("GET", "/user/" + user_id + "/fed");
+    // send the request
+    request.send();
+};
+
 document.querySelector('#catadd').addEventListener('click', getAdd);
+document.querySelector('#catfed').addEventListener('click', getFed);
