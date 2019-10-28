@@ -8,18 +8,25 @@ let fedInfo = function() {
   fedInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(fed => {
-    //.create fed info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    li.innerHTML = "Fed on " + fed.to_char + " by ";
-    // create link to feeder
-    let feeder = document.createElement('a');
-    feeder.href = "/user/" + fed.id;
-    feeder.innerText = fed.name;
-    li.appendChild(feeder);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(fed => {
+        //.create fed info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        li.innerHTML = "Fed on " + fed.to_char + " by ";
+        // create link to feeder
+        let feeder = document.createElement('a');
+        feeder.href = "/user/" + fed.id;
+        feeder.innerText = fed.name;
+        li.appendChild(feeder);
+        display.appendChild(li);
+      })
+    }
   fedInfo.appendChild(display);
 };
 

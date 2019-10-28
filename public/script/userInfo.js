@@ -8,17 +8,24 @@ let addInfo = function() {
   followInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(add => {
-    //.create follower info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    // create link to follower
-    let cat = document.createElement('a');
-    cat.href = "/cat/" + add.id;
-    cat.innerText = add.name;
-    li.appendChild(cat);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(add => {
+        //.create follower info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        // create link to follower
+        let cat = document.createElement('a');
+        cat.href = "/cat/" + add.id;
+        cat.innerText = add.name;
+        li.appendChild(cat);
+        display.appendChild(li);
+      })
+    }
   followInfo.appendChild(display);
 };
 
@@ -30,18 +37,25 @@ let fedInfo = function() {
   fedInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(fed => {
-    //.create fed info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    li.innerHTML = "Fed on " + fed.to_char + ", ";
-    // create link to feeder
-    let cat = document.createElement('a');
-    cat.href = "/cat/" + fed.cat_id;
-    cat.innerText = fed.name;
-    li.appendChild(cat);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(fed => {
+        //.create fed info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        li.innerHTML = "Fed on " + fed.to_char + ", ";
+        // create link to feeder
+        let cat = document.createElement('a');
+        cat.href = "/cat/" + fed.cat_id;
+        cat.innerText = fed.name;
+        li.appendChild(cat);
+        display.appendChild(li);
+      })
+    }
   fedInfo.appendChild(display);
 };
 
@@ -53,17 +67,24 @@ let catInfo = function() {
   followInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(follow => {
-    //.create follower info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    // create link to follower
-    let cat = document.createElement('a');
-    cat.href = "/cat/" + follow.cat_id;
-    cat.innerText = follow.name;
-    li.appendChild(cat);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(follow => {
+        //.create follower info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        // create link to follower
+        let cat = document.createElement('a');
+        cat.href = "/cat/" + follow.cat_id;
+        cat.innerText = follow.name;
+        li.appendChild(cat);
+        display.appendChild(li);
+      })
+    }
   followInfo.appendChild(display);
 };
 
@@ -75,17 +96,24 @@ let followInfo = function() {
   followInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(follow => {
-    //.create follower info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    // create link to follower
-    let user = document.createElement('a');
-    user.href = "/user/" + follow.follower_id;
-    user.innerText = follow.name;
-    li.appendChild(user);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(follow => {
+        //.create follower info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        // create link to follower
+        let user = document.createElement('a');
+        user.href = "/user/" + follow.follower_id;
+        user.innerText = follow.name;
+        li.appendChild(user);
+        display.appendChild(li);
+      })
+    }
   followInfo.appendChild(display);
 };
 
@@ -97,17 +125,24 @@ let followerInfo = function() {
   followInfo.innerHTML = "";
   let display = document.createElement('ul');
   display.classList.add("list-group", "list-group-flush");
-  response.result.forEach(follow => {
-    //.create follower info list
+  if (response.result === null) {
     let li = document.createElement('li');
     li.classList.add("list-group-item");
-    // create link to follower
-    let user = document.createElement('a');
-    user.href = "/user/" + follow.follower_id;
-    user.innerText = follow.name;
-    li.appendChild(user);
+    li.innerText = "Yet to have record";
     display.appendChild(li);
-  })
+  } else {
+      response.result.forEach(follow => {
+        //.create follower info list
+        let li = document.createElement('li');
+        li.classList.add("list-group-item");
+        // create link to follower
+        let user = document.createElement('a');
+        user.href = "/user/" + follow.follower_id;
+        user.innerText = follow.name;
+        li.appendChild(user);
+        display.appendChild(li);
+      })
+    }
   followInfo.appendChild(display);
 };
 

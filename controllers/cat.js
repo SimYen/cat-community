@@ -55,11 +55,9 @@ module.exports = (db) => {
     });
   };
 
-  let getCats = (request, response) => {
-    // respond with HTML page of all cats
-    db.cats.allCats((error, result) => {
+  let getAll = (request, response) => {
+    // respond with homepage
       let display = {};
-      display.result = result;
       // check if user is login
       let user = request.cookies.name;
       if (user === undefined) {
@@ -78,7 +76,7 @@ module.exports = (db) => {
             response.render('cat/index', display);
           });
       }
-    });
+
   };
 
   let getCat = (request, response) => {
@@ -234,6 +232,13 @@ module.exports = (db) => {
     });
   };
 
+  let allCats = (request, response) => {
+    db.cats.allCats((error, result) => {
+      console.log("all cats");
+      response.send({ result });
+    });
+  };
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -242,12 +247,13 @@ module.exports = (db) => {
   return {
     newCat: getNewCat,
     registerCat: postNewCat,
-    allCats: getCats,
+    all: getAll,
     showCat: getCat,
     editCat,
     updateCat: putCat,
     feedCat, catFed,
-    catFollow, catsFed
+    catFollow, catsFed,
+    allCats
   };
 
 }

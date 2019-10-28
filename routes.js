@@ -19,7 +19,7 @@ module.exports = (app, allModels) => {
   app.get('/user/:id', userController.showUser);
   app.get('/user/:id/edit', userController.editUser);
   app.put('/user/:id', userController.updateUser);
-  app.get('/user', userController.allUsers);
+  app.get('/users', userController.allUsers);
 
   app.post('/user/cat/:id', userController.followCat);
   app.delete('/user/cat/:id', userController.unfollowCat);
@@ -34,12 +34,13 @@ module.exports = (app, allModels) => {
   // cats
   app.get('/new', catController.newCat);
   app.post('/', catController.registerCat);
-  app.get('/', catController.allCats);
+  app.get('/', catController.all);
   app.get('/cat/:id', catController.showCat);
   app.get('/cat/:id/edit', catController.editCat);
   app.put('/cat/:id', catController.updateCat);
   app.put('/fed/:id', catController.feedCat);
   app.get('/cat/:id/fed', catController.catFed);
   app.get('/cat/:id/follow', catController.catFollow);
-  app.get('/cat', catController.catsFed);
+  app.get('/catsfed', catController.catsFed);
+  app.get('/cats', catController.allCats);
 };
