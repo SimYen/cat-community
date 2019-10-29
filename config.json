@@ -1,5 +1,13 @@
+
 {
     "cloud_name": "dwbjdxkce",
     "api_key": "414563544783533",
     "api_secret": "DvHTI7qC_7yxpusMOmCGufG2J0g"
 }
+
+// On HEROKU
+// {
+//     "cloud_name": "hhc8o9hzh",
+//     "api_key": "527654522325784",
+//     "api_secret": "HftxSgcEh4wO5m7wqdVZwFlVN5o"
+// }

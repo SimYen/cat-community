@@ -243,7 +243,7 @@ module.exports = (db, cloudinary) => {
     let cat_id = request.params.id;
     cloudinary.uploader.upload(request.file.path, function(result) {
       let urlArr = result.url.split("/");
-      let url = "https://res.cloudinary.com/dwbjdxkce/image/upload/c_fill,h_200,w_200/" + urlArr[6] + "/" + urlArr[7];
+      let url = urlArr[0]+"/"+urlArr[1]+"/"+urlArr[2]+"/"+urlArr[3]+"/"+urlArr[4]+"/"+urlArr[5]+"/c_fill,h_200,w_200/"+urlArr[6]+"/"+urlArr[7];
       db.cats.catPic(cat_id, url, (error, result) =>{
         if (result) {
           response.redirect("/cat/" + cat_id);

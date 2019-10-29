@@ -1,6 +1,6 @@
 # cat-community
 Project #2 | Full Stack Application
-URL: 
+URL: https://feedr-community.herokuapp.com/
 
 Objective of Application:
  To allow tracking of community cats by their carers and followers.
@@ -11,6 +11,7 @@ Technology:
 - PostgreSQL
 - AJAX, DOM manipulation
 - Bootstrap
+- Heroku, Cloudinary
 
 Approach:
 1. Research and prepare a Proto Persona.
@@ -25,3 +26,8 @@ Approach:
 Learning Journey:
 - Wireframing and ERD diagrams help greatly in creating functionality for the application.
 - Having a basic Front End framework can reduce functions required that can be solved by UI.
+
+Furthers:
+- To incorporate API for entering of addresses.
+- To provide status update of cats.
+- To add tables for vet visits.
