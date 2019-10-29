@@ -1,4 +1,4 @@
-module.exports = (db) => {
+module.exports = (db, cloudinary) => {
 
   /**
    * ===========================================
@@ -239,6 +239,24 @@ module.exports = (db) => {
     });
   };
 
+  let catPic = (request, response) => {
+    let cat_id = request.params.id;
+    cloudinary.uploader.upload(request.file.path, function(result) {
+      console.log(result);
+    // let url = "https://res.cloudinary.com/dwbjdxkce/image/upload/v1572330745/tvab0l1gpw7bd3imwf0g.jpg"
+      let url = result.url;
+      let urlArr = url.split("/");
+      let file = "https://res.cloudinary.com/dwbjdxkce/image/upload/c_fill,h_200,w_200/" + urlArr[6] + "/" + urlArr[7];
+      db.cats.catPic(cat_id, file, (error, result) =>{
+        if (result) {
+          response.redirect("/cat/" + cat_id);
+        } else {
+          response.send("FAIL TO UPDATE IMAGE")
+        }
+      })
+    });
+  }
+
   /**
    * ===========================================
    * Export controller functions as a module
@@ -253,7 +271,8 @@ module.exports = (db) => {
     updateCat: putCat,
     feedCat, catFed,
     catFollow, catsFed,
-    allCats
+    allCats,
+    catPic
   };
 
 }

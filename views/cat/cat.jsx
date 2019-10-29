@@ -11,6 +11,7 @@ class Cat extends React.Component {
           <section class="jumbotron text-center">
             <div class="container">
               <img class="mb-4" src="/image/oneInAMelon.jpg" alt="" width="200" height="200"/>
+
               <h1 class="jumbotron-heading">{display.title}</h1>
               <form class="form-signin" method="POST" action={display.formAction}>
                 <label for="catName" class="sr-only">Cat Name</label>
@@ -24,6 +25,7 @@ class Cat extends React.Component {
             </div>
           </section>
         </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
       </LAYOUT>
     );
   }

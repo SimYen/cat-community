@@ -1,3 +1,17 @@
+var multer = require('multer');
+var upload = multer({ dest: './uploads/' });
+
+//load module
+var cloudinary = require('cloudinary');
+
+var configForCloudinary;
+if( process.env.CLOUDINARY_URL ){   //FOR HEROKU
+  configForCloudinary = process.env.CLOUDINARY_URL;
+}else{ // FOR LOCAL
+  configForCloudinary = require("./config.json");
+}
+cloudinary.config(configForCloudinary);
+
 module.exports = (app, allModels) => {
 
   /*
@@ -8,7 +22,7 @@ module.exports = (app, allModels) => {
 
   // require the controllers
   const userController = require('./controllers/user')(allModels);
-  const catController = require('./controllers/cat')(allModels);
+  const catController = require('./controllers/cat')(allModels, cloudinary);
 
   // users
   app.get('/register', userController.newUser);
@@ -43,4 +57,5 @@ module.exports = (app, allModels) => {
   app.get('/cat/:id/follow', catController.catFollow);
   app.get('/catsfed', catController.catsFed);
   app.get('/cats', catController.allCats);
+  app.post('/cat/:id/pic', upload.single('myFile'), catController.catPic);
 };
