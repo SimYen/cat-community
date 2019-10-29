@@ -4115,6 +4115,7 @@ input[type="button"].btn-block {
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.4rem;
+  text-align: left;
 }
 
 .custom-file-label::after {

@@ -20,12 +20,11 @@ class Cat extends React.Component {
                   <input type="text" id="description" name="description" class="form-control" defaultValue={display.cat.description} placeholder="Description of cat" required/>
                 <label for="location" class="sr-only">Location</label>
                   <input type="text" id="location" name="location" class="form-control" defaultValue={display.cat.location} placeholder="Location of cat" required/>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" id="searchlocation">Submit</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
               </form>
             </div>
           </section>
         </main>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
       </LAYOUT>
     );
   }

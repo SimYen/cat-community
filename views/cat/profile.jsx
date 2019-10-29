@@ -16,12 +16,17 @@ class Profile extends React.Component {
               <div class="col-sm col-md-5">
                 <img class="mb-4" src={display.cat.image} alt="" width="200" height="200"/>
                 <form class="form-signin" enctype="multipart/form-data" method="POST" action={"/cat/" + display.cat.id + "/pic"}>
-                    <div class="form-group">
-                      <label for="catPic" class="sr-only">Update Cat Pic</label>
-                      <input type="file" class="form-control-file" id="catPic" name="myFile" aria-describedby="catPic"/>
-                      <small id="catPic" class="form-text text-muted">Do you have the latest pic of kitty to share?</small>
+                  <div class="form-group">
+                    <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="catPic" name="myFile"/>
+                        <label class="custom-file-label" for="catPic">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-info btn-sm" type="submit">Upload</button>
+                      </div>
                     </div>
-                    <button type="button" class="btn btn-info btn-sm" type="submit">Update Picture</button>
+                  </div>
                 </form>
                 <h1 class="jumbotron-heading">{display.cat.name}</h1>
                 <p>Description: {display.cat.description}<br/>
