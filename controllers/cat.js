@@ -241,11 +241,10 @@ module.exports = (db, cloudinary) => {
 
   let catPic = (request, response) => {
     let cat_id = request.params.id;
-    cloudinary.v2.uploader.upload(request.file.path,{ width: 200, height: 200, crop: "fill" }, function(result) {
-      console.log(result);
-      // let urlArr = result.url.split("/");
-      // let url = urlArr[0]+"/"+urlArr[1]+"/"+urlArr[2]+"/"+urlArr[3]+"/"+urlArr[4]+"/"+urlArr[5]+"/c_fill,h_200,w_200/"+urlArr[6]+"/"+urlArr[7];
-      db.cats.catPic(cat_id, result.url, (error, result) =>{
+    cloudinary.uploader.upload(request.file.path, function(result) {
+      let urlArr = result.url.split("/");
+      let url = urlArr[0]+"/"+urlArr[1]+"/"+urlArr[2]+"/"+urlArr[3]+"/"+urlArr[4]+"/"+urlArr[5]+"/c_fill,h_200,w_200/"+urlArr[6]+"/"+urlArr[7];
+      db.cats.catPic(cat_id, url, (error, result) =>{
         if (result) {
           response.redirect("/cat/" + cat_id);
         } else {
