@@ -37,13 +37,13 @@ let catInfo = function() {
     body.appendChild(title);
 
     // create link to user
-    let text = document.createElement('p');
+    let text = document.createElement('small');
     text.classList.add("card-text");
-    text.innerHTML = "added by ";
-    let user = document.createElement('a');
-    user.href = "/user/" + cat.user_id;
-    user.innerText = cat.reg_by;
-    text.appendChild(user);
+    text.innerHTML = cat.location;
+    // let user = document.createElement('a');
+    // user.href = "/user/" + cat.user_id;
+    // user.innerText = cat.reg_by;
+    // text.appendChild(user);
     body.appendChild(text);
 
     card.appendChild(body);
@@ -78,7 +78,7 @@ let userInfo = function() {
     title.appendChild(name);
     body.appendChild(title);
 
-    let text = document.createElement('p');
+    let text = document.createElement('small');
     text.classList.add("card-text");
     text.innerHTML = "joined on " + user.to_char;
     body.appendChild(text);

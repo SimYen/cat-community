@@ -55,7 +55,7 @@ module.exports = (app, allModels) => {
   app.put('/fed/:id', catController.feedCat);
   app.get('/cat/:id/fed', catController.catFed);
   app.get('/cat/:id/follow', catController.catFollow);
-  app.get('/catsfed', catController.catsFed); // unused, to refine search to include non-fed cats
+  app.get('/catsfed', catController.catsFed); // unused, to refine search to include non fed cats
   app.get('/cats', catController.allCats);
   app.post('/cat/:id/pic', upload.single('myFile'), catController.catPic);
 };

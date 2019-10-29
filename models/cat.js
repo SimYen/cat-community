@@ -26,7 +26,7 @@ module.exports = (dbPoolInstance) => {
   };
 
   let allCats = (callback) => {
-    let query = 'SELECT cats.id, cats.name, cats.image, cats.user_id, users.name AS reg_by ' +
+    let query = 'SELECT cats.id, cats.name, cats.image, cats.location, cats.user_id, users.name AS reg_by ' +
                 'FROM cats JOIN users ON cats.user_id=users.id ' +
                 'ORDER BY cats.added_at DESC';
 

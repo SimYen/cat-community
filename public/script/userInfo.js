@@ -18,6 +18,7 @@ let addInfo = function() {
         //.create follower info list
         let li = document.createElement('li');
         li.classList.add("list-group-item");
+        li.innerHTML = add.location + ", ";
         // create link to follower
         let cat = document.createElement('a');
         cat.href = "/cat/" + add.id;
@@ -77,6 +78,7 @@ let catInfo = function() {
         //.create follower info list
         let li = document.createElement('li');
         li.classList.add("list-group-item");
+        li.innerHTML = follow.location + ", ";
         // create link to follower
         let cat = document.createElement('a');
         cat.href = "/cat/" + follow.cat_id;
