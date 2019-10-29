@@ -4,7 +4,8 @@
   "description": "Project #2 | Full Stack Application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,9 @@
     "url": "https://github.com/SimYen/cat-community/issues"
   },
   "homepage": "https://github.com/SimYen/cat-community#readme",
+  "engines": {
+    "node": "^12.10.0"
+  },
   "dependencies": {
     "cloudinary": "^1.16.0",
     "cookie-parser": "^1.4.4",

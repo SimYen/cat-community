@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS cats (
 	description TEXT NOT NULL,
 	location TEXT NOT NULL,
 	added_at TIMESTAMPTZ DEFAULT now(),
-	vet_id INT,
 	user_id INT,
 	image TEXT
 );
