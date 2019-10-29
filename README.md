@@ -7,6 +7,7 @@ Objective of Application:
 
 Technology:
 - MVC framework
+- Sign up/log in functionality with hashed passwords & authorization flow
 - Node.js, Express.js, React.js
 - PostgreSQL
 - AJAX, DOM manipulation
@@ -24,10 +25,11 @@ Approach:
 8. Deploy to Heroku.
 
 Learning Journey:
-- Wireframing and ERD diagrams help greatly in creating functionality for the application.
-- Having a basic Front End framework can reduce functions required that can be solved by UI.
+- Wireframing and ERD diagrams help greatly in scoping and creating functionality for the application.
+- Having a basic Front End framework from the start can reduce functions required that can be solved by UI.
 
 Furthers:
 - To incorporate API for entering of addresses.
+- To incorporate Cloudinary widget for uploading of images.
 - To provide status update of cats.
 - To add tables for vet visits.

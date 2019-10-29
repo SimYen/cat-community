@@ -246,7 +246,7 @@ module.exports = (dbPoolInstance) => {
 
   let follow = (follow, callback) => {
     let input = [ follow.user_id, follow.follower_id ];
-    let query = 'INSERT INTO followers (user_id, follower_id) VALUES ($1, $2) RETURNING *';
+    let query = 'INSERT INTO followers (user_id, follower_id) VALUES ($2, $1) RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -264,7 +264,7 @@ module.exports = (dbPoolInstance) => {
 
   let unfollow = (unfollow, callback) => {
     let input = [ unfollow.user_id, unfollow.follower_id ];
-    let query = 'DELETE FROM followers WHERE user_id=$1 AND follower_id=$2 RETURNING *';
+    let query = 'DELETE FROM followers WHERE user_id=$2 AND follower_id=$1 RETURNING *';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -282,7 +282,7 @@ module.exports = (dbPoolInstance) => {
 
   let getFollow = (data, callback) => {
     let input = [ data.user_id, data.follower_id ];
-    let query = 'SELECT * FROM followers WHERE user_id=$1 AND follower_id=$2';
+    let query = 'SELECT * FROM followers WHERE user_id=$2 AND follower_id=$1';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){
@@ -300,8 +300,8 @@ module.exports = (dbPoolInstance) => {
 
   let getFollowing = (user, callback) => {
     let input = [ user ];
-    let query = 'SELECT followers.follower_id, users.name FROM followers JOIN users ' +
-                'ON followers.follower_id=users.id WHERE followers.user_id=$1';
+    let query = 'SELECT followers.user_id, users.name FROM followers JOIN users ' +
+                'ON followers.user_id=users.id WHERE followers.follower_id=$1';
 
     dbPoolInstance.query(query, input, (error, queryResult) => {
       if( error ){

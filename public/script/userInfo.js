@@ -108,7 +108,7 @@ let followInfo = function() {
         li.classList.add("list-group-item");
         // create link to follower
         let user = document.createElement('a');
-        user.href = "/user/" + follow.follower_id;
+        user.href = "/user/" + follow.user_id;
         user.innerText = follow.name;
         li.appendChild(user);
         display.appendChild(li);
