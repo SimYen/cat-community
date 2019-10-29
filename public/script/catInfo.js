@@ -33,7 +33,6 @@ let fedInfo = function() {
 // get follow info
 let followInfo = function() {
   let response = JSON.parse( this.responseText );
-  console.log(response);
   let followInfo = document.getElementById('cat-info');
   // clear display for info
   followInfo.innerHTML = "";
