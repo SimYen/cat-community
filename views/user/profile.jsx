@@ -10,7 +10,7 @@ class Profile extends React.Component {
           <section class="jumbotron text-center">
             <div class="row">
 
-              <div class="col-sm">
+              <div class="col-sm col-md-5">
                 <img class="mb-4" src="/image/strayCatFeederLogo.png" alt="" width="200" height="200"/>
                 <h1 class="jumbotron-heading">{display.account.name}</h1>
                 <p>Joined on {display.account.to_char}</p>
@@ -19,7 +19,7 @@ class Profile extends React.Component {
                 </form>
               </div>
 
-              <div class="col-sm">
+              <div class="col-sm col-md-7">
                 <h1>Feedr Info</h1>
                 <div class="btn-group" role="group" aria-label="User Info">
                   <button class="btn btn-secondary" id="catadd" type="submit">Added</button>

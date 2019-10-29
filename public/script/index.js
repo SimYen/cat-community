@@ -13,6 +13,17 @@ let catInfo = function() {
     let card = document.createElement('div');
     card.classList.add("card", "mb-3");
 
+    let img = document.createElement('img');
+    img.classList.add("card-img-top");
+    if (cat.image === null) {
+      img.src = "/image/loafingAround.jpg";
+    } else {
+        img.src = cat.image;
+    };
+    img.alt = cat.name;
+    img.width = 100;
+    card.appendChild(img);
+
     let body = document.createElement('div');
     body.classList.add("card-body");
 

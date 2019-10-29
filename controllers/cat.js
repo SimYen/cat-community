@@ -242,16 +242,13 @@ module.exports = (db, cloudinary) => {
   let catPic = (request, response) => {
     let cat_id = request.params.id;
     cloudinary.uploader.upload(request.file.path, function(result) {
-      console.log(result);
-    // let url = "https://res.cloudinary.com/dwbjdxkce/image/upload/v1572330745/tvab0l1gpw7bd3imwf0g.jpg"
-      let url = result.url;
-      let urlArr = url.split("/");
-      let file = "https://res.cloudinary.com/dwbjdxkce/image/upload/c_fill,h_200,w_200/" + urlArr[6] + "/" + urlArr[7];
-      db.cats.catPic(cat_id, file, (error, result) =>{
+      let urlArr = result.url.split("/");
+      let url = "https://res.cloudinary.com/dwbjdxkce/image/upload/c_fill,h_200,w_200/" + urlArr[6] + "/" + urlArr[7];
+      db.cats.catPic(cat_id, url, (error, result) =>{
         if (result) {
           response.redirect("/cat/" + cat_id);
         } else {
-          response.send("FAIL TO UPDATE IMAGE")
+          response.send("OPPS! FAIL TO UPDATE IMAGE.");
         }
       })
     });
