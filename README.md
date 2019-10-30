@@ -15,10 +15,13 @@ Technology:
 - Heroku, Cloudinary
 
 Approach:
-1. Research and prepare a Proto Persona.
-2. Identify a Problem Statement.
+1. Research and prepare a Proto Persona:
+- 
+2. Identify a Problem Statement:
 3. Prototype wireframes for the application.
-URL: https://wireframepro.mockflow.com/view/feedr-community
+![Homepage](https://github.com/SimYen/cat-community/blob/master/Homepage.png)
+![Cat Profile](https://github.com/SimYen/cat-community/blob/master/Cat_Profile.png)
+![User Profile](https://github.com/SimYen/cat-community/blob/master/User_Profile.png)
 4. Draw out ERD for tables and relations.
 ![ERD](https://github.com/SimYen/cat-community/blob/master/project2ERD.png)
 5. Code the functions of the application.
