@@ -16,8 +16,11 @@ Technology:
 
 Approach:
 1. Research and prepare a Proto Persona:
-- 
+- Bio/Background - feeder.
+- Needs/Goals - feed the cat.
+- Frustrations/Challenges - do not know where the cat is, do not know if cat was fed.
 2. Identify a Problem Statement:
+- User Story - [user] needs [cat's info] so as to [follow up].
 3. Prototype wireframes for the application.
 ![Homepage](https://github.com/SimYen/cat-community/blob/master/Homepage.png)
 ![Cat Profile](https://github.com/SimYen/cat-community/blob/master/Cat_Profile.png)
