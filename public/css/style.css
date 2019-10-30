@@ -3516,6 +3516,7 @@ input[type="button"].btn-block {
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+  flex-wrap: wrap;
 }
 
 .btn-group > .btn,
