@@ -1,5 +1,5 @@
 # cat-community
-Project #2 | Full Stack Application
+### Project #2 | Full Stack Application
 URL: https://feedr-community.herokuapp.com/
 
 **Objective of Application:**
