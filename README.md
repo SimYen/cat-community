@@ -1,11 +1,11 @@
 # cat-community
-Project #2 | Full Stack Application
+### Project #2 | Full Stack Application
 URL: https://feedr-community.herokuapp.com/
-
-Objective of Application:
+---
+**Objective of Application:**
  To allow tracking of community cats by their carers and followers.
 
-Technology:
+**Technology:**
 - MVC framework
 - Sign up/log in functionality with hashed passwords & authorization flow
 - Node.js, Express.js, React.js
@@ -14,7 +14,7 @@ Technology:
 - Bootstrap
 - Heroku, Cloudinary
 
-Approach:
+**Approach:**
 1. Research and prepare a Proto Persona:
 - Bio/Background - feeder.
 - Needs/Goals - feed the cat.
@@ -32,12 +32,13 @@ Approach:
 7. Integrate Front and Back ends of code.
 8. Deploy to Heroku.
 
-Learning Journey:
+**Learning Journey:**
 - Wireframing and ERD diagrams help greatly in scoping and creating functionality for the application.
 - Having a basic Front End framework from the start can reduce functions required that can be solved by UI.
 
-Furthers:
+**Furthers:**
 - To incorporate API for entering of addresses.
 - To incorporate Cloudinary widget for uploading of images.
 - To provide status update of cats.
+- To see latest activities of followers.
 - To add tables for vet visits.
